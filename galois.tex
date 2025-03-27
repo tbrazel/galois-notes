@@ -187,23 +187,39 @@ So take some $h \in L \subseteq \mathcal{K}_{X,p}$, and suppose $h$ is fixed und
 
 We now know that $h$ extends to a meromorphic function $\til{h}$ on $U$. We want to see that this extends to all of $X$. In order to do this, we exploit that $h \in L$. So $h$ can be written as some polynomial in $\til{h}_\alpha$'s, where $\til{h}_\alpha$ is a meromorphic function on all of $Y$ restricted to a neighborhood of $q_\alpha$. None of these have essential singularities, and this is unchanged when taking a polynomial in them. Hence $\til{h}$ has no essential singularities, and therefore extends to a meromorphic function on $X$ whose germ at $p$ is $h$. Thus $L^M = K$, and we are done.
 
+\subsection{Galois groups over the rationals}
+
+A priori this tells us nothing about Galois groups of enumerative problems over $\Q$, or field extensions of solutions, or anything like that. We can translate information happening over this complex function field to statements about rationals via \textit{Hilbert irreducibility}. As a jumping off point, let's talk about monic univariate polynomials and their Galois groups (which is the origin of this story).
+
+\begin{example} Let $f(x) = x^n + a_1 x^{n-1} + \ldots + a_n$ be the generic monic univariate polynomial of degree $n$, and let's think about it as living in $\C(a_1, \ldots, a_n)[x]$. Then there exist \textit{rational numbers} $a_1, \ldots, a_n$ for which $f(x) = x^n + a_1 x^{n-1} + \ldots + a_n$ is irreducible in $\Q[x]$. In fact the set of points $(a_1, \ldots, a_n) \in \A^n_{\Q}$ for which this property holds is Zariski dense.
+\end{example}
+
+\begin{corollary} If $G$ is the Galois group of $\C(a_1, \ldots, a_n)[x] / f$ then $G$ is the Galois group of any specialization of $f$ to $\Q[x]$ which is irreducible. In particular, we can compute in the generic case that $G = S_n$.
+\end{corollary}
+
+This admits a generalization to polynomials in arbitrarily many variables, so we get an application which we will refer to as Hilbert irreducibility in these notes.
+
+\begin{slogan}[Hilbert irreducibility] Let $X$ be a complex moduli space of geometric objects (e.g. cubic surfaces), and $\pi \colon Y \to X$ a generically finite map. Then the Galois group of $\pi$ is isomorphic to the Galois group of any object in $X$ defined over the rationals.
+\end{slogan}
+
+As a particular case to illustrate what we mean, we will see that the Galois group of lines on complex cubic surfaces is $W(E_6)$. That implies that if $X$ is any randomly chosen cubic surface defined over $\Q$, the field of definition $K/\Q$ of the lines on $X$ has Galois group $\Gal(K/\Q) \cong W(E_6)$.
+
 \subsection{An example we know and love}
 
 Consider the incidence variety of roots of a univariate polynomial
 \begin{align*}
     Y = \left\{ (f,t) \colon f(t) = 0 \right\} \subseteq \P^d \times \P^1.
 \end{align*}
-Then $Y \to \P^d$ is a projective bundle. We want to argue its Galois group is $S_n$. We need to show it is $2$-transitive\footnote{Recall a group $G$ is $2$\emph{-transitive} if it acts transitively on the set $G \times G \minus \Delta$ of ordered pairs of elements in $G$.}
-and it contains a single transposition.
+Then $Y \to \P^d$ is a projective bundle, whose Galois group is the full symmetric group. There are many ways to prove this, we highlight two:
+\begin{enumerate}
+    \item We can argue algebraically that the Galois group of the generic polynomial of degree $d$ is the full symmetric group $\Sigma_d$.
+    \item We can argue that the monodromy of the cover is symmetric, e.g. by showing it is 2-transitive and contains a transposition.
+\end{enumerate}
 
-\begin{proposition} If $Y \to X$ is generically finite, then the Galois group of $Y \to X$ is 2-transitive if and only if $Y \times_X Y \minus \Delta$ is irreducible.\footnote{There is also a version for $k$-transitivity.} 
-\end{proposition}
+In either of these approaches, we obtain the Abel--Ruffini theorem as an immediate application via Hilbert irreducibility.
 
-In our case, we can argue that $Y \times_{\P^d} Y\minus\Delta$ is irreducible.
-
-To see it has a transposition, we find a polynomial with a single double root and all other roots distinct. Then the map $Y \to \P^d$ is locally irreducible near the fiber where the two sheets merge to form a double root, and monodromy around it yields a single transposition. This is phrased and proven precisely in a lemma on \cite[p.~698]{Harris-Galois}, which we will get to in a later talk.
-
-\textbf{An ahistorical application}: The Galois group of solving for a root of a degree $n$ polynomial is $\Sigma_n$, and hence not solvable by radicals for $n\ge 5$.
+\begin{theorem} If $f(x) \in \Q[x]$ is a polynomial of degree $\ge 5$, there is no general formula in radicals for the roots of $f$ in terms of the coefficients of $f$.
+\end{theorem}
 
 \section{Flexes and bitangents}
 
@@ -564,6 +580,9 @@ Can show that $\Stab_{\Mon(\pi)}(k_0) = O_6^{-}(\Z/2)$. Sidhanth will explain!
 
 
 
+\subsection{Why \texorpdfstring{$W(E_7)$}{W(E7)}?}
+
+Given a smooth planar quartic, we can take a cover of $\P^2$ branched along the quartic, and we obtain a degree two del Pezzo. This is of the form $\Bl_7(\P^2)$. A line on the del Pezzo is any curve intersecting the canonical divisor with order 1, and we have 56 such lines. The image of any of these in $\P^2$ is precisely one of our bitangents, and they map 2-to-1. From this perspective, $W(E_7)/\{\pm 1\}$ emerges as the Galois group analogously to how $W(E_6)$ emerges as the Galois group from $\Bl_6 \P^2$.
 
 \appendix
 \section{Algebraic geometry terms and references}
