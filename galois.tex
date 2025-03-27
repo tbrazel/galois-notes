@@ -34,6 +34,7 @@
 \setlength{\epigraphwidth}{0.8\textwidth}
 \newcommand{\quoteblock}[2]{\epigraph{\itshape#1}{#2}}
 
+\providecommand{\ASL}{\mathrm{ASL}}
 \providecommand{\Conf}{\mathrm{Conf}}
 \providecommand{\Mon}{\mathrm{Mon}}
 
@@ -343,6 +344,35 @@ A general $C \in W''$ is smooth at $p_0$ with $\ell_0$ a simple hyperflex (the m
 The fibers of $\eta \colon I'' \to I_0$ are linear of codimension three in $W''$, therefore $I''$ is irreducible of dimension $\dim I'' = \dim W''$ (todo: why?). Then...
 \end{proof}
 
+\subsection{Flexes on a plane cubic: geometric properties}
+
+The following observation is classical, and its origins are hard to trace, but it was well-known at the time of Jordan (see \cite[p.~302]{Jordan}). The configuration of lines and flexes along a planar cubic is called the \textit{Hesse arrangement} (see \cite[p.~118]{Dolgachev}).
+
+\begin{proposition} Let $C$ be a smooth planar cubic, and consider its nine inflection points.
+\begin{enumerate}
+    \item These nine points lie on twelve lines
+    \item The twelve lines meet four at a time at any given flex.
+\end{enumerate}
+This configuration is illustrated in \autoref{fig: A2 F3}.
+\end{proposition}
+\begin{proof} This can be seen by endowing $C$ with an abelian structure as an elliptic curve, after which the flexes of $C$ can be identified with the $3$-torsion points in the elliptic curve structure.
+\end{proof}
+
+Jordan noted (in modern language) that any monodromy of the flexes over the moduli of cubics will preserve the Hesse arrangement, in particular the resulting permutation of the nine flexes will preserve the colinearity properties they satisfy \cite[Theorem~425]{Jordan}. In particular the monodromy will be a subgroup of the graph automorphisms of the graph in \autoref{fig: A2 F3}. This automorphism group can be identified with the affine general linear group $\ASL(2,\F_3)$, given by the semidirect product of the translations and rotations $\ASL(2,\F_3) \cong \F_3^2 \rtimes \SL(2,\F_3)$. That is:
+\begin{align*}
+    \Mon(\text{flexes on cubics}) \le \ASL(2,\F_3) \le \Sigma_9.
+\end{align*}
+We will show this first inclusion is an equality, following \cite{Harris-Galois}.
+
+\begin{note} This group $\ASL(2,\F_3)$ acts on the cubic via projective transformations, and hence forms a subgroup of $\PGL_3(\C)$ often called the \textit{Hesse group} \cite[\S3.1.4]{Dolgachev}.
+\end{note}
+
+\begin{note} This group $\ASL(2,\F_3)$ has GAP ID \texttt{[216,153]}.
+\end{note}
+
+\begin{question} Does this group (as so many other groups in this field) admit any exceptional isomorphisms which hint at other ways to visualize the monodoromy?
+\end{question}
+
 
 \subsection{Monodromy of flexes on plane cubics}
 
@@ -370,6 +400,23 @@ If we choose a base point $p_0\in C$, then for all $d\geq 1$, the \textit{Abel-J
     \caption{Lines on affine plane over $\mathbb{F}_3$.}
     \label{fig: A2 F3}
 \end{figure}
+
+
+\subsection{Solvability of flexes in radicals, in the style of Jordan}
+
+Observe that $\ASL_2(\F_3)$ is a \textit{solvable group} -- this was first noticed by Jordan in \cite[III.III\S1]{Jordan}. An example subnormal series exhibiting solvability is:
+\[ \begin{tikzcd}
+    C_4\rar[hook] & Q_8\rar[hook]\dar[two heads] & \SL_2(\F_3)\dar[two heads]\rar[hook] & \ASL_2(\F_3)\dar[two heads]\\
+     & C_2 & C_2 & \F_3^2.
+\end{tikzcd} \]
+Here for instance
+\begin{align*}
+    C_4 &= \left\langle \begin{pmatrix} 0 & 1 \\ 2 & 0 \end{pmatrix}  \right\rangle \le \left\langle \begin{pmatrix} 0 & 1 \\ 2 & 0 \end{pmatrix}, \begin{pmatrix} 2 & 2 \\ 2 & 1 \end{pmatrix}  \right\rangle = Q_8.
+\end{align*}
+In particular this solvability implies that the equation for a flex point on a cubic admits a formula in radicals in terms of the coefficients for the cubic.
+
+\begin{question} Can we find this formula written out explicitly anywhere?
+\end{question}
 
 
 \section{Monodromy of bitangents}
