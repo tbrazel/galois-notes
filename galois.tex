@@ -404,35 +404,29 @@ it's entirely possible that a $\theta$-characteristic has no nonzero sections. S
 It turns out there is a close connection between $\theta$-characteristics and the geometry of smooth canonical quartic curves, in fact the odd $\theta$-characteristics \textit{are} the bitangents. Making the connection between the odd characteristics and geometry is non-canonical, and one needs to carry an \textit{even} $\theta$-characteristic in their hand in order to do it. So let's first establish and explain some bijections and constructions:
 
 \[ \begin{tikzcd}
-    {\{\substack{\text{even } \theta\text{-characteristics} \\ \text{on }C}\}}\dar["\sim" right,"(b)" left]\rar["(a)"] & {\{\substack{\text{embeddings }C \to \P^3 \\ \text{of degree } 6}\}} & \\
-    {\{\substack{\text{symmetric determinantal}\\\text{representations of }C}\}}\rar["(c)" below] & {\{\substack{\text{nets of quadrics}\\\text{in }\P^3}\}}\uar["(d)"]\rar["(e)"] & {\{\text{Cayley octads}\}}
+    {\{\substack{\text{quartics and even } \\\theta\text{-characteristics }(C,\theta) }\}}\dar[<->,"\sim" right,"(b)" left]\rar[<->,"(a)"] & {\{\substack{\text{space sextics} \\ \text{in } \P^3}\}} & \\
+    {\{\substack{\text{nets of quadrics}\\\text{in }\P^3}\}} \rar["(d)" below]\ar[ur,"(c)" below right]\dar["(f)" left] & {\{\substack{\text{symmetric determinantal}\\\text{representations of }C}\}}\uar["(e)" right] \\
+    {\{\substack{\text{Cayley octads} \\ \text{in }\P^3}\}}
 \end{tikzcd} \]
 
 \begin{enumerate}[(a)]
 \item \textit{Sextic space curve embeddings from even $\theta$-characteristics}: Given a tuple $(C,\theta)$, we can consider the very ample linear series $|3\theta| = |K_C+\theta|$. This has $h^0(C,3\theta) = 4$, hence defines an embedding $C \hookto \P^3$ which we can verify is of degree six.
 
-To go back the other way, we consider the difference between the hyperplane class on $C$ embedded in $\P^3$ and its hyperplane class under its canonical embedding in the plane. The difference between these is an even $\theta$-characteristic.
+To go back the other way, we consider the difference between the hyperplane class on $C$ embedded in $\P^3$ and its hyperplane class under its canonical embedding in the plane. The difference between these is an even $\theta$-characteristic.\footnote{\textbf{Question}: Is every space sextic a genus $3$ curve embedded via an even $\theta$-characteristic?}
 
-\item todo
+\item \textit{Even $\theta$-characteristics and nets of quadrics}: This bijection is described in the proof of \cite[6.3]{GrossHarris-theta}.
 
-\item \textit{From determinantal representations to nets of quadrics}: Let $C = V(f(x,y,z))$. Given a symmetric determinantal representation
+
+\item \textit{Nets of quadrics to space sextics}: Given a net of quadrics, we can consider its subset of singular elements. Singular quadric surfaces are cones, and their vertices are points in $\P^3$. Varying over all singular quadrics in a net, the vertices sweep out a space curve of degree six. This process is called taking the \textit{discriminant} of the net of sextics.
+
+\item \textit{Nets of quadrics and symmetric determinantal representations}: Any quadric in $\P^3$ can be represented by a symmetric $4 \times 4$ matrix, so given a quadric net we can pick any three quadrics to form a basis, and consider the quartic form produced by the following determinant:
 \begin{align*}
-    f = \det \left( xA + yB + zC \right),
+    f = \det(xA + yB + zC).
 \end{align*}
-we can define quadrics out of each of the symmetric $4 \times 4$ matrices $A$, $B$, and $C$, via for instance
-\begin{align*}
-    Q_A(y_1, y_2, y_3, y_4) = y^T A y
-\end{align*}
-if $y\in \P^3$ is any point. This gives three quartic surfaces $Q_A$, $Q_B$, $Q_C$, whose span yields a net which we call $N_\theta$ (here $\theta$ was the even $\theta$-characteristic giving rise to the determinantal representation):
-\begin{align*}
-    N_\theta := \text{span}\{Q_A,Q_B,Q_C\} \subseteq H^0(\P^3, \O(2)).
-\end{align*}
-%
-The set of all tuples $(C,\theta)$ where $C$ is any canonical smooth quartic and $\theta$ is any even $\theta$-characteristic on $C$ is in bijection with the set of all nets of quadric surfaces in $\P^3$ \cite[6.3]{GrossHarris-theta}
+This is a symmetric determinantal representation of a quartic. To go the other way, we produce the quadrics $Q_A(y) = y^T A y$ and $Q_B$ and $Q_C$ arising from a symmetric determinantal representation of $f$ and look at the net they span.
 
-\item \textit{Nets of quadrics to sextic space curves}: Given a net of quadrics, we can consider its subset of singular elements. Singular quadric surfaces are cones, and their vertices are points in $\P^3$. Varying over all singular quadrics in a net, the vertices sweep out a space curve of degree six.
 
-If $\theta$ corresponds to a determinantal representation given by the matrices $(A,B,C)$, then the embedding $C \hookto \P^3$ can be given by
+\item \textit{Space sextics from symmetric determinantal representations}: Given a determinantal representation $(A,B,C)$ for the quartic $C$, we obtain an embedding $C \hookto \P^3$ via
 \begin{align*}
     \phi_\theta \colon C &\to \P^3 \\
     [x:y:z] &\mapsto \ker(xA+yB+zC).
@@ -440,8 +434,6 @@ If $\theta$ corresponds to a determinantal representation given by the matrices 
 %
 \item \textit{Nets of quadrics to Cayley octads}: Given a net of quadric surfaces, its base locus is eight points in $\P^3$, which we call a \textit{Cayley octad}.
 \end{enumerate}
-
-Let's comment on a few more of these constructions.
 
 
 \subsection{Cayley octads, formally}
