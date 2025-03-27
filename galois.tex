@@ -346,9 +346,26 @@ The fibers of $\eta \colon I'' \to I_0$ are linear of codimension three in $W''$
 
 \subsection{Monodromy of flexes on plane cubics}
 
+\paragraph{\textbf{The Jacobian and Abel's Theorem}}
 
+Let $C$ be a smooth curve of genus $g$ over $\C$. We have $H_1(C;\Z) \cong \Z^{2g}$ and by Serre duality, $H^0(C, \omega_C) \cong H^1(C, \O_C) \cong \C^g$. There is a natural inclusion $i: H_1(C;\Z) \to H^0(C, \omega_C)^\vee$ sending the path $(p\to q)$ to the functional $\int_p^q$. The \textit{Jacobian} of $C$ is $$J(C):= \frac{H^0(C, \omega_C)^\vee}{H_1(C; \Z)} \cong \frac{\C^g}{\Z^{2g}}.$$
+If we choose a base point $p_0\in C$, then for all $d\geq 1$, the \textit{Abel-Jacobi map} $\mu_d: C^d\to J(C)$ sends a $d$-uple $(q_1, \dots, q_d)$ to the functional $\left[\sum_{i = 1}^d \int_{p_0}^{q_i}\right]$.
+\begin{theorem}[Abel's Theorem \textcolor{red}{cite}]
+    Two divisors $D_1$ and $D_2$ of degree $d$ on $C$ are linearly equivalent if and only if their images under the Abel-Jacobi map $\mu_d$ are equal. Moreover, the Abel-Jacobi map factors as $$C^d\to \operatorname{Pic}_d(C)\overset{-d\cdot p_0}{\longrightarrow} \operatorname{Pic}_0(C) \overset{\cong}{\to} J(C).$$
+\end{theorem}
+\begin{corollary}
+    The number of $n$-torsion points in $\operatorname{Pic}_0(C)$ is $n^{2g}$.
+\end{corollary}
 
-\begin{figure}
+\begin{proof}
+    The group $\operatorname{Pic}_0(C)$ is isomorphic to the Jacobian $J(C)\cong (S^1)^{2g}$. The subgroup of $n$-torsion points is then $(\Z/n)^{2g} \subset (S^1)^{2g}$ and has order $n^{2g}$.
+\end{proof}
+
+\begin{proposition}
+    For an elliptic curve $(E, o)$, the Abel-Jacobi map $\mu_1: E \to J(E)$ is an isomorphism. 
+\end{proposition}
+
+\begin{figure}[H]
     \input{assets/affine plane over F3.tex}
     \caption{Lines on affine plane over $\mathbb{F}_3$.}
     \label{fig: A2 F3}
