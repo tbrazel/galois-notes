@@ -358,11 +358,25 @@ This configuration is illustrated in \autoref{fig: A2 F3}.
 \begin{proof} This can be seen by endowing $C$ with an abelian structure as an elliptic curve, after which the flexes of $C$ can be identified with the $3$-torsion points in the elliptic curve structure.
 \end{proof}
 
-Jordan noted (in modern language) that any monodromy of the flexes over the moduli of cubics will preserve the Hesse arrangement, in particular the resulting permutation of the nine flexes will preserve the colinearity properties they satisfy \cite[Theorem~425]{Jordan}. In particular the monodromy will be a subgroup of the graph automorphisms of the graph in \autoref{fig: A2 F3}. This automorphism group can be identified with the affine general linear group $\ASL(2,\F_3)$, given by the semidirect product of the translations and rotations $\ASL(2,\F_3) \cong \F_3^2 \rtimes \SL(2,\F_3)$. That is:
+Jordan noted (in modern language) that any monodromy of the flexes over the moduli of cubics will preserve the Hesse arrangement, in particular the resulting permutation of the nine flexes will preserve the colinearity properties they satisfy. He proved the following result.
+
+\begin{theorem}[{\cite[Theorem~425]{Jordan}}] Let $f(x)$ be an irreducible polynomial of degree nine, and let $\psi(x,y)$ be a rational function of two variables, which is symmetric in the variables. Suppose that $f$ has the property that, given any two of its roots $a$ and $b$, we can define a third root by the formula $c = \psi(a,b)$, which further satisfies:
 \begin{align*}
-    \Mon(\text{flexes on cubics}) \le \ASL(2,\F_3) \le \Sigma_9.
+    b = \psi(a,c) \text{ and } a = \psi(b,c).
 \end{align*}
-We will show this first inclusion is an equality, following \cite{Harris-Galois}.
+Then the Galois group of $f$ is contained in the affine special linear group $\ASL(2,\F_3)$.
+\end{theorem}
+
+The immediate application of this is of course:
+
+\begin{corollary} The monodromy of flexes on smooth plane cubics is contained in $\ASL(2,\F_3)$.
+\end{corollary}
+
+Jordan didn't argue this was an equality, although Dickson and Weber did shortly thereafter (modulo a technicality about which field we are working over -- a technicality which is explained by Hilbert irreducibility and the fact that nine is odd. We should explain further). We will prove this is an equality following \cite[\S~II.2]{Harris-Galois}.
+
+\begin{question} Can we discuss Jordan's theorem in the language of resolvent degree?
+\end{question}
+
 
 \begin{note} This group $\ASL(2,\F_3)$ acts on the cubic via projective transformations, and hence forms a subgroup of $\PGL_3(\C)$ often called the \textit{Hesse group} \cite[\S3.1.4]{Dolgachev}.
 \end{note}
@@ -444,7 +458,7 @@ The first two describe the same group (like even beyond group isomorphism they a
 
 \subsection{\texorpdfstring{$\theta$}{theta}-characteristics for quartics}
 
-Recall that a $\theta$\textit{-characteristic} on a variety $X$ is a square root of the canonical bundle $\omega_X$.
+Recall that a $\theta$\textit{-characteristic} on a variety $X$ is a square root of the canonical bundle $\omega_X$. From this perspective it can equivalently be thought of as a divisor $D$ for which $2D \sim K_X$.
 
 \begin{definition} We say a $\theta$-characteristic, represented by a line bundle $\mathcal{L}$ on $X$ is...
 \begin{itemize}
@@ -461,12 +475,21 @@ it's entirely possible that a $\theta$-characteristic has no nonzero sections. S
 \begin{remark}[reference needed] If $C$ is a complex smooth projective curve of genus $g$, then there is a bijection between the effective $\theta$-characteristics on $C$ and $\Jac(C)[2]$, the $2$-torsion points in the Jacobian of $C$.
 \end{remark}
 
-\begin{example} If $C$ is a smooth quartic curve, it has $28$ odd $\theta$-characteristics.
+\begin{example} An effective $\theta$-characteristic on a smooth canonical curve of genus $3$ is a bitangent.
+\end{example}
+\begin{proof} The canonical class $K$ is the hyperplane class for the canonical embedding $C \subseteq \P^2$, hence as a divisor it is in general the sum of four points. If $D$ is a $\theta$-characteristic, it has the property that $2D \sim K$, hence if $D$ is effective, it is a sum of two points $p$ and $q$ on $K$. We'd love to say that $2D$ is actually given by a line, since then it would be tangent to $C$ at both $p$ and $q$. This turns out to be true -- it is a feature of the linear series $|K_C|$ implied by $C$ being projectively normal.\footnote{Can we explain this more? We had a discussion about definitions during Michael's talk I'd love to clarify in the notes.}
+\end{proof}
+
+\begin{proposition} On a smooth canonical curve of genus $g=3$, a $\theta$-characteristic is odd if and only if it is effective.
+\end{proposition}
+\begin{proof} How do we prove this?
+\end{proof}
+
+
+\begin{example} If $C$ is a smooth quartic curve, it has $28$ odd (effective) $\theta$-characteristics, corresponding to the bitangents.
 \end{example}
 
-
-It turns out there is a close connection between $\theta$-characteristics and the geometry of smooth canonical quartic curves, in fact the odd $\theta$-characteristics \textit{are} the bitangents. Making the connection between the odd characteristics and geometry is non-canonical, and one needs to carry an \textit{even} $\theta$-characteristic in their hand in order to do it. So let's first establish and explain some bijections and constructions:
-
+What do the even $\theta$-characteristics correspond to? It turns out they reveal quite a bit about the geometry of the quartic. We have the following maps and constructions, many of which are bijections:
 \[ \begin{tikzcd}
     {\{\substack{\text{quartics and even } \\\theta\text{-characteristics }(C,\theta) }\}}\dar[<->,"\sim" right,"(b)" left]\rar[<->,"(a)"] & {\{\substack{\text{space sextics} \\ \text{in } \P^3}\}} & \\
     {\{\substack{\text{nets of quadrics}\\\text{in }\P^3}\}} \rar["(d)" below]\ar[ur,"(c)" below right]\dar["(f)" left] & {\{\substack{\text{symmetric determinantal}\\\text{representations of }C}\}}\uar["(e)" right] \\
