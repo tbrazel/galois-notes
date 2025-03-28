@@ -397,7 +397,7 @@ If we choose a base point $p_0\in C$, then for all $d\geq 1$, the \textit{Abel-J
 \begin{theorem}[Abel's Theorem \textcolor{red}{cite}]
     Two divisors $D_1$ and $D_2$ of degree $d$ on $C$ are linearly equivalent if and only if their images under the Abel-Jacobi map $\mu_d$ are equal. Moreover, the Abel-Jacobi map factors as $$C^d\to \operatorname{Pic}_d(C)\overset{-d\cdot p_0}{\longrightarrow} \operatorname{Pic}_0(C) \overset{\cong}{\to} J(C).$$
 \end{theorem}
-\begin{corollary}
+\begin{corollary} \label{cor: n torsion in J(C)}
     The number of $n$-torsion points in $\operatorname{Pic}_0(C)$ is $n^{2g}$.
 \end{corollary}
 
@@ -409,7 +409,24 @@ If we choose a base point $p_0\in C$, then for all $d\geq 1$, the \textit{Abel-J
     For an elliptic curve $(E, o)$, the Abel-Jacobi map $\mu_1: E \to J(E)$ is an isomorphism. 
 \end{proposition}
 
-\begin{figure}[H]
+\paragraph{\textbf{Flexes of a Plane Cubic and Monodromy}}
+
+Let $(E,o)$ be an elliptic curve. The complete linear series $|3o|$ embeds $E$ as a smooth plane cubic curve. The divisor $3o$ is then linearly equivalent to the intersection of $E$ with a general line $\ell$. 
+
+If $p\in E$ is a flex point with tangent line $\ell$, then $3p\sim 3o$, which means $[3(p-o)]= 0$ in $\operatorname{Pic}_0(C)$. By Corollary \ref{cor: n torsion in J(C)}, there are $3^2 = 9$ points in $\operatorname{Pic}_0(C)$ that are $3$-torsion, so $E$ has $9$ flexes. 
+
+Recall that $E\cong J(E) \cong \C/ \Lambda$ where the lattice $\Lambda = H_1(E; \Z)$. If $z\in \C$ is such that $z (\mod \Lambda)$ is a flex, then $z-o \in \frac{1}{3}\Lambda$. Therefore, the flexes of $E$ can be obtained as the cokernel $\operatorname{coker}\left(\Lambda \overset{\cdot 3}{\longrightarrow}\right) \cong \A^2_{\mathbb{F}_3}$.
+Upon choosing an origin for $\A^2_{\mathbb{F}_3}$, the intersection form on $\Lambda = H_1(E; \Z)$ descends to a bilinear form $\alpha: \mathbb{F}_3^2 \times \mathbb{F}_3^2 \to \mathbb{F}_3$. 
+
+\begin{proposition}
+    The monodromy group $\Mon(\pi)$ preserves the structure of the affine space $\A^2_{\mathbb{F}_3}$. Upon choosing an origin $O \in \A^2_{\mathbb{F}_3}$, the stabilizer subgroup $\operatorname{Stab}_O$ preserves the $\mathbb{F}_3$-bilinear form $\alpha$. 
+\end{proposition}
+
+\begin{proof}
+    Todo.
+\end{proof}
+
+\begin{figure}
     \input{assets/affine plane over F3.tex}
     \caption{Lines on affine plane over $\mathbb{F}_3$.}
     \label{fig: A2 F3}
