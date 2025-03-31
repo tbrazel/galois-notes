@@ -37,6 +37,7 @@
 \providecommand{\ASL}{\mathrm{ASL}}
 \providecommand{\Conf}{\mathrm{Conf}}
 \providecommand{\Mon}{\mathrm{Mon}}
+\providecommand{\UConf}{\mathrm{UConf}}
 
 \fancyfoot[C]{\thepage}
 \begin{document}
@@ -449,6 +450,14 @@ In particular this solvability implies that the equation for a flex point on a c
 \begin{question} Can we find this formula written out explicitly anywhere?
 \end{question}
 
+\subsection{Solving for flexes on a given cubic}
+
+A textbook treatment is described on \cite[p.~333]{MillerBlichfeldtDickson}, in a section appropriately entitled \emph{Group $G$ of the Equation $X$ for the Abscissas}\footnote{This is terminology in some older math books: \textit{abscissa} means $x$-coordinate, and \textit{ordinate} means $y$-coordinate.} \emph{of the Points of Inflexion}. For a general cubic $f(x,y,z)=0$, we can restrict our attention to the affine patch $z=1$. We then set up the equation for $f(x,y,1)=\det Hf = 0$, and via elimination theory we can write $y$ as a rational function in $x$:
+\begin{align*}
+    y = \phi(x) \in \C(a_0,a_1, \ldots, a_9)(x),
+\end{align*}
+where the $a_i$'s are the coordinates of a general cubic. Finally we plug in $f(x,\phi(x),1) =0$ and clear denominators to obtain a degree nine polynomial in $x$, the roots of which are the $x$-coordinates of all the nine flexes on the cubic.
+
 
 \section{Monodromy of bitangents}
 
@@ -681,6 +690,13 @@ Can show that $\Stab_{\Mon(\pi)}(k_0) = O_6^{-}(\Z/2)$. Sidhanth will explain!
 \subsection{Why \texorpdfstring{$W(E_7)$}{W(E7)}?}
 
 Given a smooth planar quartic, we can take a cover of $\P^2$ branched along the quartic, and we obtain a degree two del Pezzo. This is of the form $\Bl_7(\P^2)$. A line on the del Pezzo is any curve intersecting the canonical divisor with order 1, and we have 56 such lines. The image of any of these in $\P^2$ is precisely one of our bitangents, and they map 2-to-1. From this perspective, $W(E_7)/\{\pm 1\}$ emerges as the Galois group analogously to how $W(E_6)$ emerges as the Galois group from $\Bl_6 \P^2$.
+
+In fact, given seven points on the plane satisfying the closed condition that no three are colinear and no six lie on a conic, we obtain a nonsingular quartic together with a choice of even $\theta$-characteristic. In fact we have a birational isomorphism
+\begin{align*}
+    \UConf_7(\P^2)/\PGL_3 \overset{\sim}{\dashto} \mathcal{M}_3^\text{ev},
+\end{align*}
+where $\UConf$ is the moduli of unordered configurations, and $\mathcal{M}_3^\text{ev}$ is the moduli of genus three curves equipped with an even $\theta$-characteristic \cite[6.3.12]{Dolgachev}
+
 
 \appendix
 \section{Algebraic geometry terms and references}
