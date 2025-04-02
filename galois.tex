@@ -266,7 +266,7 @@ Combining this with the number $3d(d-2)$ of flexes on $C$, we get
 \begin{align*}
     d = d^\ast(d^\ast-1) - 2b - 2\cdot 3d(d-2).
 \end{align*}
-Let's now suppose that $C$ is suitably general, so that it is nonsingular and hence $d^\ast = d(d-1)$ with no correcion term. We then get
+Let's now suppose that $C$ is suitably general, so that it is nonsingular and hence $d^\ast = d(d-1)$ with no correction term. We then get
 \begin{align*}
     d = d(d-1)\left( d(d-1)-1 \right) - 2b - 3\cdot 3d(d-2).
 \end{align*}
@@ -277,6 +277,8 @@ Solving for $b$ we obtain
 \end{aligned}
 \end{equation}
 This is the number of bitangents on a general smooth curve of degree $d$ as estimated by Pl\"{u}cker and proven by Jacobi.
+
+\subsection{The Pl\"ucker formulas via Riemann-Hurwitz} TODO
 
 \subsection{Monodromy of flexes: the setup}
 
@@ -612,7 +614,7 @@ The fiber of $\eta$ over a point in $J_0$ is a linear subspace in $J_d$. So $\et
 
 \begin{proposition} The monodromy acts 2-transitively on the fiber.
 \end{proposition}
-\begin{proof} It suffices to argue that the stabilizer of a bitangent, as a subgroup of monodromy, acts on the remaining points in the fiber transitively....
+\begin{proof} It suffices to argue that the stabilizer of a bitangent, as a subgroup of monodromy, acts on the remaining points in the fiber transitively.... TODO
 \end{proof}
 
 
@@ -697,6 +699,144 @@ In fact, given seven points on the plane satisfying the closed condition that no
     \UConf_7(\P^2)/\PGL_3 \overset{\sim}{\dashto} \mathcal{M}_3^\text{ev},
 \end{align*}
 where $\UConf$ is the moduli of unordered configurations, and $\mathcal{M}_3^\text{ev}$ is the moduli of genus three curves equipped with an even $\theta$-characteristic \cite[6.3.12]{Dolgachev}
+
+\section{Lines on hypersurfaces}
+
+\begin{question} How many lines lie on a general hypersurface $X_d \subseteq \P^n$ of degree $d$.
+\end{question}
+
+If $n=3$, $d=3$, then a smooth cubic surface has exactly 27 lines.
+
+For $n=4$, $d=5$, it's not true that a \textit{smooth} quintic threefold has the same number of lines, but a general quintic threefold has 2875 lines.
+
+The \textit{Fano variety} of lines parametrizes lines inside of a given projective variety $X \subseteq \P^n$.
+
+\begin{question} Before constructing this, for which $n$ and $d$ do we expect the existence of lines on a degree $d$ hypersurface $X_d \subseteq \P^n$?
+\end{question}
+
+Consider the dimension of the space of all hypersurfaces
+\begin{align*}
+    N = \dim \left| \O_{\P^n}(d) \right| = \binom{n+d}{n}-1.
+\end{align*}
+We get an incidence correspondence\footnote{Here $\mathbb{G}(1,n)$ is the lines in $\P^n$, it is equivalently the affine Grassmannian $G(2,n+1)$.}
+\begin{align*}
+    \Phi_{n,d}:= \left\{ (X,L) \in \P^N \times \mathbb{G}(1,n) : L \subseteq X \right\}.
+\end{align*}
+We get two projections
+\[ \begin{tikzcd}
+     & \Phi_{n,d}\ar[dl,"\pi_1" below left]\ar[dr,"\pi_2" above right] & \\
+    \mathbb{P}^N &  & \mathbb{G}.
+\end{tikzcd} \]
+%
+\begin{proposition} The incidence variety $\Phi_{n,d}$ is smooth and irreducible of dimension $\dim(\Phi_{n,d}) = N + 2(n-1) - (d+1)$.
+\end{proposition}
+\begin{proof} Observe that $\pi_2$ is a projective bundle, since over any line $[L] \in \mathbb{G}$, its fiber is all those hypersurfaces containing $L$. This is the same as
+\begin{align*}
+    \pi_2^{-1}([L]) = \mathbb{P} H^0(\P^n, \mathcal{I}_L(d))^\vee.
+\end{align*}
+This comes from the ideal sheaf sequence for a line $L \subseteq \P^n$, tensoring with $\O(d)$, then taking the LES on cohomology:
+\begin{align*}
+    0 \to H^0(\mathcal{I}_L(d)) \to H^0(\O_{\P^n}(d)) \tto H^0(\O_L(d)) \to 0
+\end{align*}
+We can show that latter map is surjective (can extend any homogeneous polynomial in two variables to one in $n+1$ variables). Since $H^0(\O_L(d)) = H^0(\O_{\P^1}(d))$, we have that $H^0(\mathcal{I}_L(d))$ has constant dimension.\footnote{Jake notes: if we fix a line $L$, then $F_{|L}=0$ is a linear condition on $F$.} Therefore $\pi_2$ is a projective bundle. We get that
+\begin{align*}
+    \dim H^0(\mathcal{I}_L(d)) &= \dim H^0(\O_{\P^n}(d)) - H^0(\O_L(d)) \\
+    &= N - (d+1).
+\end{align*}
+Then we add $2(n-1)$ back in for the dimension of the Grassmannian we are working over.
+\end{proof}
+
+The expected dimension of lines on a general $X_d \subseteq \P^n$ is then
+\begin{align*}
+    \dim \Phi - N &= 2(n-1) - (d+1).
+\end{align*}
+%
+We expect to have finitely many lines when this is zero, i.e. when $d = 2n-3$.
+
+Since we computed the dimension of $\Phi$, the equality above is an \textit{upper bound}.
+
+\begin{theorem} If the expected dimension is $\ge0$ then every hypersurface contains lines (the fiber of $\pi_1$ is nonempty for every hypersurface $X\in \P^N$) and the dimension of the space of lines on $X$, denoted $F_1(X)$, is equal to the expected dimension, for a general $X$.
+\end{theorem}
+
+So if we're working with general hypersurfaces, then we have the expected dimension count.
+
+\begin{conjecture}[Debarre-de Jong] If $X_d \subseteq \P^n$ is \textit{any} smooth hypersurface of degree $d\le n$, then $F_1(X)$ has dimension equal to the expected dimension $2n-3-d$.
+\end{conjecture}
+
+This is false in other degree ranges.
+
+\begin{example} If $n=3$ and $d=4$, then $X_4 \subseteq \P^3$ is a smooth quartic K3, and a general one doesn't have any lines. By Noether--Lefschetz the very general quartic has Picard rank one. However we can write down smooth quartics which contain lines (e.g. the Fermat quartic), which would violate the conjecture above.
+\end{example}
+
+The main theorem we will want to prove is
+
+\begin{theorem} The Galois group of lines on a general hypersurface $X \subseteq \P^n$ of degree $2n-3$, for $n\ge 4$, is the full symmetric group.
+\end{theorem}
+
+\subsection{Construction}
+
+Let $L \subseteq X = \left\{ g=0 \right\} \subseteq \P^n$. Then, thinking of $g \in H^0(\O_{\P^d}(d))$, there is a restriction map to the line $L$:
+\begin{align*}
+    \res \colon H^0(\P^n(d)) \to H^0(\O_L(d)).
+\end{align*}
+To say $X$ contains the line is to say $g \mapsto 0$.
+
+\textbf{Key idea}: If we look at the family of restrictions of sections to $L$, we can vary this as $L$ ranges over points in the Grassmannian, and we can realize this as a vector bundle over $\mathbb{G}(1,n)$.
+
+We get that the images of $g$ under the restriction map become values of a section of this bundle.
+
+More explicitly, let $V$ be a vector space of dimension $n+1$, where we are thinking of $\P^n = \mathbb{P}(V)$. There is a bijection between lines $L \subseteq \P^n$ and dimension two subspaces $\Lambda \subseteq V$. Tensoring $V$ with $\O_\mathbb{G}$, we get a trivial bundle
+\begin{align*}
+    V \otimes\O_\mathbb{G} \to \mathbb{G}.
+\end{align*}
+Inside of this we have a tautological rank two subbundle $\mathcal{S} \subseteq V \otimes \O_\mathbb{G}$, whose fiber $\mathbb{S}_{[L]}$ is $\Lambda$, where $L = \mathbb{P}(\Lambda)$ for $\Lambda \subseteq V$ a rank two subspace.
+
+The fiber of $\mathcal{S}^\vee$ over $[L]$ is linear forms on $L$, which is $H^0(\O_L(1))$. What does it mean for a polynomial to restrict to zero? Dualizing the inclusion $\mathcal{S} \subseteq V \otimes \O_\mathbb{G}$, we get
+\begin{align*}
+    V^\vee \otimes \O_{\mathbb{G}} \to \mathcal{S}^\vee.
+\end{align*}
+Note that $V^\vee \otimes \O_\mathbb{G}$ is trivial, so it's recording \textit{constant sections}. Restricting this map to some $L$, we get that a linear form $\phi$ on $V$ is mapped to the restricted linear form $\phi_{|L}$.
+
+We can symmetrize this to look at degree $d$ forms, and we get
+\begin{align*}
+    H^0(\O_{\P^n}(d)) = \Sym^d V^\vee \to \Sym^d(\mathcal{S}^\vee),
+\end{align*}
+sending $g \mapsto g_{|L}$. The constant section $g$ gets send to some $\sigma_g \in H^0(\Sym^d V^\vee)$, and $F_1(X)$ is the zero locus of this section $\sigma_g$.
+
+\begin{proposition} The total Chern class of $\mathcal{S}^\vee$ is
+\begin{align*}
+    c(\mathcal{S}^\vee) = 1 + \sigma_1 + \sigma_{1,1}.
+\end{align*}
+\end{proposition}
+
+We have $\sigma_g \in H^0(\Sym^d \mathcal{S}^\vee)$. Here $\mathcal{S}$ has rank two, so $\Sym^d(\mathcal{S}^\vee)$ has rank $d+1$. Its zero locus will then be
+\begin{align*}
+    \deg c_{d+1}(\Sym^d \mathcal{S}^\vee) = \#\{\text{lines on a general hypersurface } X_{2n-3} \subseteq \P^n\}
+\end{align*}
+%
+We use the splitting principle and get
+\begin{align*}
+    d d! \sum_k \frac{(2k)!}{k! (k+1)!}\sum_{\substack{I \subseteq \left\{ 1, \ldots, n-2 \right\} \\ \#I = n-2-k}} \prod_{i\in I} \frac{(d-2i)^2}{i(d-i)}.
+\end{align*}
+This is \url{https://oeis.org/A027363}
+
+\begin{remark} There is a short discussion in the paper of when $F_1(X)$ is singular. It turns out $F_1(X)$ is singular at $u \in F_1(X) \subseteq \mathbb{G}$ if and only if the corresponding line $\lambda_u \subseteq X$ has normal bundle $N$ with the property that $h^0(N) > 2n-3+d$. If we remember, this is the \textit{expected dimension}.
+
+By Riemann--Roch, we write
+\begin{align*}
+    h^0(N) = 2n-3+d + h^1(N),
+\end{align*}
+so this is the same as saying $h^1(N)>0$.
+\end{remark}
+
+\begin{remark}[On the Galois group] \,
+\begin{enumerate}
+    \item We show it's transitive (follows from $\Phi$ being irreducible)
+    \item We show it's 2-transitive (fix a line $L$ and show that $\Stab_L$ is transitive. Here is where we need $n\ge 4$)
+    \item Existence of a transposition: we show that there exists an $F_1(X)$ with a point of multiplicity two (also need $n\ge4$)
+\end{enumerate}
+\end{remark}
+
 
 
 \appendix
