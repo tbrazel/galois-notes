@@ -19,7 +19,6 @@
 \DeclareFieldFormat{multipostnote}{#1}
 
 \def\theshiftamount{2}
-
 \let\del\partial
 \let\til\widetilde
 \let\nsubgp\trianglelefteq
@@ -32,7 +31,6 @@
 
 % Custom quote block command
 \setlength{\epigraphwidth}{0.8\textwidth}
-\newcommand{\quoteblock}[2]{\epigraph{\itshape#1}{#2}}
 
 \providecommand{\ASL}{\mathrm{ASL}}
 \providecommand{\Conf}{\mathrm{Conf}}
@@ -57,6 +55,10 @@
 
 Some notes from a mini-seminar run in Spring 2025 on Galois groups of enumerative problems, following Joe Harris' 1979 paper of the same name \cite{Harris-Galois}. These notes aren't intended to be a definitive reference, but are perhaps more narrow than the survey paper \cite{SottileYahl}, for instance. Our goals are to fill out details and examples to better understand how to carry out computations in monodromy and enumerative geometry.
 
+\subsection{Notation}
+
+We modify some notation slightly (e.g. $\Gr(k,n)$ instead of $G(k,n)$ for the Grassmannian of affine $k$-planes in affine $n$-space), but for the most part follow closely with the notation in \cite{Harris-Galois}.
+
 \section{Talk 1: Thomas Brazelton, 3/10}
 
 \begin{question} Given an enumerative problem, to what field extension do we need to pass to in order to find all its solutions?
@@ -75,7 +77,7 @@ Camille Jordan, 1870, \cite[pp.301-302]{Jordan}}
 
 The six subsections of Chapter III in Jordan's book are dedicated to particular problems whose Galois group he is interested in studying. For instance:
 \begin{itemize}
-    \item[III.I] Given a planar cubic curve, we know by work of Hesse that it has the property that the line passing through any two of its flexes pass through the cubic at a third inflection point. As there are nine flexes, each flex lies on four of these lines, for a total of 12 lines.\footnote{I'd love to include a nice picture here, but unfortunately by a result of Klein, a smooth real planar cubic will have at most three of its nine flexes defined over $\R$ \cite{Ronga-Klein}.} \emph{Can we obtain a formula for the flexes in terms of the coefficients of the cubic?}
+    \item[III.I] (\Cref{sec:flexes}) Given a planar cubic curve, we know by work of Hesse that it has the property that the line passing through any two of its flexes pass through the cubic at a third inflection point. As there are nine flexes, each flex lies on four of these lines, for a total of 12 lines.\footnote{I'd love to include a nice picture here, but unfortunately by a result of Klein, a smooth real planar cubic will have at most three of its nine flexes defined over $\R$ \cite{Ronga-Klein}.} \emph{Can we obtain a formula for the flexes in terms of the coefficients of the cubic?}
 
     \item[III.II] Given a quartic curve, can we find a cubic curve so that among the 12 points of intersection, they are in three sets of four colinear points? This follows work of Clebsch, who asked \textit{contact problems} of a similar flavor (see \cite[(429)]{Jordan}).
 
@@ -85,7 +87,7 @@ The six subsections of Chapter III in Jordan's book are dedicated to particular 
 
     \item[III.V] Following Steiner,\footnote{%
     %
-    The Steiner reference is his 1857 paper \textit{Über die Flächen dritten Grades} (On cubic surfaces) \cite{Steiner-cubic-surfaces}, published in Crelle's Journal, which was called Borchardt's Journal during Borchardt's tenure as editor (1856--1880). It's interesting to me that Jordan references work of Steiner, rather than work of Cayley and Salmon, from 1849 and 1847, respectively.} every cubic surface has 27 lines. These lines lie on 45 tritangents, and two tritangent planes always intersect at some line, not necessarily a line on the cubic surface though. If two tritangent planes $a_1b_1c_1$ and $a_2b_2c_2$ don't meet at a line on a cubic surface, then there exists another tritangent plane $a_3b_3c_3$ for which $a_1a_2a_3$, $b_1b_2b_3$, and $c_1c_2c_3$ form tritangents. These are called \textit{trihedral pairs}, and there are 120 of them (see e.g. \cite[p.~112]{Hunt}). Can we solve for the equations of the lines given the equation of the cubic surface? Can we incorporate the constraints imposed by the trihedral pairs?
+    The Steiner reference is his 1857 paper \textit{Über die Flächen dritten Grades} (On cubic surfaces) \cite{Steiner-cubic-surfaces}, published in Crelle's Journal, which was called Borchardt's Journal during Borchardt's tenure as editor (1856--1880). It's interesting to me that Jordan references work of Steiner, rather than work of Cayley and Salmon, from 1849 and 1847, respectively.} every smooth cubic surface has 27 lines. These lines lie on 45 tritangents, and two tritangent planes always intersect at some line, not necessarily a line on the cubic surface though. If two tritangent planes $a_1b_1c_1$ and $a_2b_2c_2$ don't meet at a line on a cubic surface, then there exists another tritangent plane $a_3b_3c_3$ for which $a_1a_2a_3$, $b_1b_2b_3$, and $c_1c_2c_3$ form tritangents. These are called \textit{trihedral pairs}, and there are 120 of them (see e.g. \cite[p.~112]{Hunt}). Can we solve for the equations of the lines given the equation of the cubic surface? Can we incorporate the constraints imposed by the trihedral pairs?
 
     \item[III.VI] Again following Clebsch, fix a curve $C$ of order $n$ and $\frac{n(n-3)}{2}$ points on it. Can we determine the curves of order $n-3$ intersecting $C$? For example if $n=4$, can we determine all the 28 bitangents to $C$?
 \end{itemize}
@@ -224,7 +226,7 @@ In either of these approaches, we obtain the Abel--Ruffini theorem as an immedia
 \begin{theorem} If $f(x) \in \Q[x]$ is a polynomial of degree $\ge 5$, there is no general formula in radicals for the roots of $f$ in terms of the coefficients of $f$.
 \end{theorem}
 
-\section{Flexes and bitangents}
+\section{Flexes and bitangents}\label{sec:flexes}
 
 \subsection{Historical background}
 
@@ -307,7 +309,7 @@ We want to try to find the monodromy group of $\pi$, and the following fact will
 \begin{proposition}\label{prop:Id-irred-flexes}
 The incidence variety $I_d$ is irreducible.
 \end{proposition}
-\begin{proof} We can consider the projection $\eta \colon I_d \to I_0$. Since $I_0$ is irreducible, we will be able to conclude (by \autoref{prop:irred-criterion}) that $I_d$ is irreducible if $\eta$ has equidimensional fibers. Indeed we can check that the fiber of $\eta$ over any point $(p,\ell) \in I_0$ is exactly those degree $d$ plane curves with a flex line $\ell$ at the point $p$. This is always a codimension three linear subspace of $W_d$.
+\begin{proof} We can consider the projection $\eta \colon I_d \to I_0$. Since $I_0$ is irreducible, we will be able to conclude (by \Cref{prop:irred-criterion}) that $I_d$ is irreducible if $\eta$ has equidimensional fibers. Indeed we can check that the fiber of $\eta$ over any point $(p,\ell) \in I_0$ is exactly those degree $d$ plane curves with a flex line $\ell$ at the point $p$. This is always a codimension three linear subspace of $W_d$.
 \end{proof}
 
 We now want to argue that the monodromy group $\Mon(\pi)$ acts transitively on the fibers of $\pi$. By covering space theory, it will suffice to argue that, by restricting to the locus $U \subseteq W_d$ over which $\pi$ is unramified, the fiber $\pi^{-1}(U)$ is connected.
@@ -357,7 +359,7 @@ The following observation is classical, and its origins are hard to trace, but i
     \item These nine points lie on twelve lines
     \item The twelve lines meet four at a time at any given flex.
 \end{enumerate}
-This configuration is illustrated in \autoref{fig: A2 F3}.
+This configuration is illustrated in \Cref{fig: A2 F3}.
 \end{proposition}
 \begin{proof} This can be seen by endowing $C$ with an abelian structure as an elliptic curve, after which the flexes of $C$ can be identified with the $3$-torsion points in the elliptic curve structure.
 \end{proof}
@@ -468,9 +470,9 @@ A classical problem is to compute the monodromy group of the 28 bitangents to a 
 
 \subsection{History of bitangents to quartics}
 
-As discussed earlier, the expression (\autoref{eqn:bitangents-in-terms-of-degree}) for the number of bitangents to a smooth curve of degree $d$, in terms of $d$, was known to Pl\"{u}cker in the 1830's. Despite this, Pl\"{u}cker's arguments are considered from a modern perspective (and likely also at the time) as sketchy at best. The so-called Pl\"{u}cker formulas were not rigorously proven by Pl\"{u}cker, and although he did sketch an accurate resolution of the pole-polar duality paradox, it did not constitute a proof.
+As discussed earlier, the expression (\Cref{eqn:bitangents-in-terms-of-degree}) for the number of bitangents to a smooth curve of degree $d$, in terms of $d$, was known to Pl\"{u}cker in the 1830's. Despite this, Pl\"{u}cker's arguments are considered from a modern perspective (and likely also at the time) as sketchy at best. The so-called Pl\"{u}cker formulas were not rigorously proven by Pl\"{u}cker, and although he did sketch an accurate resolution of the pole-polar duality paradox, it did not constitute a proof.
 
-The expression in \autoref{eqn:bitangents-in-terms-of-degree} was proven by Jacobi \cite{Jacobi1850}, an application of which is the computation that when $d=4$, a smooth planar quartic has 28 bitangents. This was extended shortly afterwards by Hesse, a student of Jacobi, who showed that a \textit{general} quartic has 28 bitangents \cite{Hesse1855}. Hesse's work was immensely difficult, and he likened it in a letter to Jacobi to Newton's work discovering the law of gravity \cite[p.~165]{Gray-worlds}.
+The expression in \Cref{eqn:bitangents-in-terms-of-degree} was proven by Jacobi \cite{Jacobi1850}, an application of which is the computation that when $d=4$, a smooth planar quartic has 28 bitangents. This was extended shortly afterwards by Hesse, a student of Jacobi, who showed that a \textit{general} quartic has 28 bitangents \cite{Hesse1855}. Hesse's work was immensely difficult, and he likened it in a letter to Jacobi to Newton's work discovering the law of gravity \cite[p.~165]{Gray-worlds}.
 
 For a very classical textbook treatment of the theory of bitangents to quartics, section 12 (\S95-\S105) of Weber's 1896 book on algebra is dedicated to this \cite[\S95-\S105]{Weber1896}. A contemporary treatment can be found in \cite[\S6.1]{Dolgachev}.
 
@@ -480,7 +482,7 @@ Jordan, inspired by work of Clebsch, initially asked to what extent equations fo
 \end{align*}
 The first two describe the same group (like even beyond group isomorphism they are describing the same quadratic forms in mildly different language). The latter group passes through the theory of Lie groups. Some references for this connection:
 \begin{itemize}
-    \item See \cite[Theorem~9]{DolgachevOrtland} for the derivation of this group in terms of the theory of Cayley octads (I can add the story of Cayley octads to these notes if people like)
+    \item See \cite[Theorem~9]{DolgachevOrtland} for the derivation of this group in terms of the theory of Cayley octads
     \item Manivel \cite{Manivel2006} discusses this, and mentions in the intro to the paper that the Galois groups for bitangents and lines to cubic surfaces were well-known at the beginning of the 1900's. He references a connection to Lie groups that passes through the theory of Del Pezzo surfaces of degrees 3 and 2. The point of Manivel's paper is cutting out this passage through Del Pezzos and drawing a direct connection to the Lie groups. I'd like to understand both of these stories.
     \item In \cite[p.~367]{MillerBlichfeldtDickson}, the Galois group of 28 bitangents is spelled out explicitly. The $7$ in $E_7$ comes in here through the theory of Aronhold sets --- that is, given an Aronhold set, we can solve for the remaining bitangents. What is this connection, and how does it relate to the theory of Cayley octads?
 \end{itemize}
@@ -564,7 +566,7 @@ Given eight points in $\P^3$ which are the base locus of a net of quadrics, we s
 Any Cayley octad arising from a quartic $(C,\theta)$ has the property that no three of its eight points are colinear, and no four are coplanar.
 \end{proposition}
 
-Suppose we are handed eight points in $\P^3$ satisfying \autoref{prop:colinearity-coplanarity-cayley-octads}. We can ask whether an associated quartic and even $\theta$-characteristic can be uniquely recovered from this data, and the answer is yes. Moreover, we don't need all eight points to rebuild the quartic -- we only need \textit{seven of the eight points}.
+Suppose we are handed eight points in $\P^3$ satisfying \Cref{prop:colinearity-coplanarity-cayley-octads}. We can ask whether an associated quartic and even $\theta$-characteristic can be uniquely recovered from this data, and the answer is yes. Moreover, we don't need all eight points to rebuild the quartic -- we only need \textit{seven of the eight points}.
 
 \subsection{Duality via an even \texorpdfstring{$\theta$}{theta}-characteristic}
 
@@ -724,7 +726,7 @@ We get an incidence correspondence\footnote{Here $\mathbb{G}(1,n)$ is the lines 
 \end{align*}
 We get two projections
 \[ \begin{tikzcd}
-     & \Phi_{n,d}\ar[dl,"\pi_1" below left]\ar[dr,"\pi_2" above right] & \\
+     & \Phi_{n,d}\ar[dl,"\pi_1" above left]\ar[dr,"\pi_2" above right] & \\
     \mathbb{P}^N &  & \mathbb{G}.
 \end{tikzcd} \]
 %
