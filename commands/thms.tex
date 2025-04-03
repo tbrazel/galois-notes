@@ -1,100 +1,36 @@
-\usepackage{cleveref}
-\let\fullref\autoref
+\usepackage[capitalise,nameinlink,noabbrev]{cleveref}
+\usepackage{etoolbox}
 %
-\def\makeautorefname#1#2{\expandafter\def\csname#1autorefname\endcsname{#2}}
-%  
-\makeautorefname{eqn}{Equation}%
-\makeautorefname{sec}{Section}%
-\makeautorefname{subsec}{Subsection}%
-\makeautorefname{footnote}{footnote}%
-\makeautorefname{item}{item}%
-\makeautorefname{figure}{Figure}%
-\makeautorefname{table}{Table}%
-\makeautorefname{wraptab}{wraptable}%
-\makeautorefname{part}{Part}%
-\makeautorefname{app}{Appendix}%
-\makeautorefname{cla}{claim}%
-\makeautorefname{ans}{answer}%
-\makeautorefname{assump}{assumption}%
-\makeautorefname{conj}{conjecture}%
-\makeautorefname{constr}{construction}%
-\makeautorefname{cor}{corollary}%
-\makeautorefname{cex}{counterexample}%
-\makeautorefname{cexs}{counterexamples}%
-\makeautorefname{dig}{digression}%
-\makeautorefname{disc}{discussion}%
-\makeautorefname{def}{definition}%
-\makeautorefname{ex}{example}%
-\makeautorefname{exs}{examples}%
-\makeautorefname{fac}{fact}%
-\makeautorefname{goal}{goal}%
-\makeautorefname{intu}{intuition}%
-\makeautorefname{lem}{lemma}%
-\makeautorefname{meta}{metathm}%
-\makeautorefname{motiv}{motivation}%
-\makeautorefname{nota}{notation}%
-\makeautorefname{note}{note}%
-\makeautorefname{warn}{warning}%
-\makeautorefname{prop}{proposition}%
-\makeautorefname{ques}{question}%
-\makeautorefname{rmk}{remark}%
-\makeautorefname{set}{setup}%
-\makeautorefname{strat}{strategy}%
-\makeautorefname{term}{terminology}%
-\makeautorefname{thm}{theorem}%
-\makeautorefname{upsh}{upshot}%
-%
-%                  *** End of hyperref stuff ***
-
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}[section]
 \numberwithin{theorem}{section} % important bit
-\newtheorem{answer}[theorem]{Answer}
-\newtheorem{assumption}[theorem]{Assumption}
-\newtheorem{claim}[theorem]{Claim}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{construction}[theorem]{Construction}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{counterexample}[theorem]{Counterexample}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{digression}[theorem]{Digression}
-\newtheorem{discussion}[theorem]{Discussion}
-\newtheorem{example}[theorem]{Example}
-\newtheorem{examples}[theorem]{Examples}
-\newtheorem{exercise}[theorem]{Exercise}
-\newtheorem{fact}[theorem]{Fact}
-\newtheorem{goal}[theorem]{Goal}
-\newtheorem{idea}[theorem]{Idea}
-\newtheorem{intuition}[theorem]{Intuition}
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{metathm}[theorem]{Meta-theorem}
-\newtheorem{motivation}[theorem]{Motivation}
-\newtheorem{notation}[theorem]{Notation}
-\newtheorem{note}[theorem]{Note}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{question}[theorem]{Question}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{setup}[theorem]{Setup}
-\newtheorem{slogan}[theorem]{Slogan}
-\newtheorem{strategy}[theorem]{Strategy}
-\newtheorem{terminology}[theorem]{Terminology}
-\newtheorem{upshot}[theorem]{Upshot}
-\newtheorem{warning}[theorem]{Warning}
+\numberwithin{equation}{section} % number equations like (1.1), (1.2), etc.
 
-%%%% hack to get fullref working correctly
-\makeatletter
-\let\c@corollary=\c@theorem
-\let\c@proposition=\c@theorem
-\let\c@lemma=\c@theorem
-\let\c@assumption=\c@theorem
-\let\c@conjecture=\c@theorem
-\let\c@definition=\c@theorem
-\let\c@example=\c@theorem
-\let\c@remark=\c@theorem
-\let\c@notation=\c@theorem
-\let\c@equation\c@theorem
-\let\c@strategy\c@theorem
-\makeatother
+% Macro to capitalize input
+\usepackage{mfirstuc}
+\newcommand{\capitalizename}[1]{\makefirstuc{#1}}
 
-\renewcommand*{\subsectionautorefname}{Subsection}
-\renewcommand*{\sectionautorefname}{Section}
+% Define a theorem following the theorem counter
+\newcommand{\defthm}[1]{%
+  \newtheorem{#1}[theorem]{\capitalizename{#1}}%
+}
+
+% Iterate the defthm command over a csv
+\newcommand{\defthms}[1]{%
+  \forcsvlist{\defthm}{#1}%
+}
+
+% Define theorems
+\defthms{answer,assumption,claim,conjecture,construction,corollary,
+         counterexample,definition,digression,discussion,example,
+         examples,exercise,fact,goal,idea,intuition,lemma,
+         motivation,notation,note,proposition,question,remark,setup,
+         slogan,strategy,terminology,upshot,warning}
+
+% Custom quote block command
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{0.8\textwidth}
+\newenvironment{quoteblock}[2]
+  {\epigraph{\itshape#1}{#2}\par\smallskip}
+  {}
+

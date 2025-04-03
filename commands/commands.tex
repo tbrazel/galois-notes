@@ -1,22 +1,22 @@
 % Packages
-\usepackage{amsmath,amssymb,amsthm,amsfonts,thmtools}
+\usepackage{%
+  mathtools,  % math extensions and fixes; loads amsmath
+  amssymb,    % extra math symbols
+  amsthm,     % enhanced theorem environments
+  amsfonts,   % additional math fonts
+  thmtools,   % customization tools for theorems
+  float,
+  color,
+  xcolor,
+  tikz,
+  tikz-cd,
+  mathrsfs,   % for script letters
+}
 \usepackage[shortlabels]{enumitem}[cleveref]
-\usepackage{amsfonts}
 \usepackage[margin=1in]{geometry}
-\usepackage{float}
 
 % Avoid footnote patch error
 \usepackage[final,nopatch=footnote]{microtype}
-
-\RequirePackage{color}
-\RequirePackage{tikz}
-\RequirePackage{tikz-cd}
-
-% For arrows
-\RequirePackage{mathtools}
-
-% For script letters
-\RequirePackage{mathrsfs}
 
 % For boxes around cheatsheets
 \usepackage{mdframed}
@@ -32,17 +32,15 @@
     rightmargin = 100pt
     backgroundcolor=gray!50!white}
 
-% Parindent/parskip
-% \setlength{\parindent}{0pt}
 
-% Custom color names
-\usepackage{xcolor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Colors
+\usepackage{xcolor,color}
 \definecolor{darkgreen}{rgb}{0,0.30,0}
 \definecolor{darkred}{rgb}{0.75,0,0}
 \definecolor{darkblue}{rgb}{0,0,0.6} 
 \definecolor{custompurple}{RGB}{62, 34, 127}
-
-
 % Citation colors
 \def\customcitecolor{darkred}
 \def\customlinkcolor{darkred}
@@ -54,6 +52,9 @@
     linkcolor=\customlinkcolor,%
     urlcolor=\customlinkcolor%
 ]{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 % Removes vertical spacing around aligned environments
 \usepackage{etoolbox}
