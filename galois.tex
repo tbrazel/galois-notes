@@ -34,6 +34,8 @@
 
 \providecommand{\ASL}{\mathrm{ASL}}
 \providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\Flex}{\mathrm{Flex}}
+\providecommand{\HypFlex}{\mathrm{HypFlex}}
 \providecommand{\Mon}{\mathrm{Mon}}
 \providecommand{\res}{\mathrm{res}}
 \providecommand{\UConf}{\mathrm{UConf}}
@@ -57,9 +59,51 @@ Some notes from a mini-seminar run in Spring 2025 on Galois groups of enumerativ
 
 \subsection{Notation}
 
-We modify some notation slightly (e.g. $\Gr(k,n)$ instead of $G(k,n)$ for the Grassmannian of affine $k$-planes in affine $n$-space), but for the most part follow closely with the notation in \cite{Harris-Galois}.
+We modify some notation slightly (e.g. $\Gr(k,n)$ instead of $G(k,n)$ for the Grassmannian of affine $k$-planes in affine $n$-space), but for the most part follow closely with the notation in \cite{Harris-Galois}. Some exceptions include using $\Flex_{(p_0,\ell_0)}$ and $\HypFlex_{(p_0,\ell_0)}$ instead of $W'$ and $W''$ for the locus of degree $d$ curves with a fixed flex or hyperflex in \Cref{sec:flexes}
 
-\section{Talk 1: Thomas Brazelton, 3/10}
+\section{Solvability}
+
+A foundational question in algebra is the following.
+
+\begin{question}\label{solvable-bivariate-polynomial} 
+Given a polynomial equation $F(u,z)=0$, can we express $u$ as a function in terms of $z$?
+\end{question}
+
+Locally we know the answer to be yes via the inverse function theorem, but we are interested in the shape of the equation -- did we need square roots? Cube roots? Rational functions? A basic example comes in the case where $F(u,z) = z-f(u)$. Then we are asking how to go from $z = f(u)$ to an expression for $u$ in terms of $z$. This is generally done via Galois theory. If $K$ is our base field, we consider the extension
+\begin{align*}
+    K(z) \hookto \frac{K(z)[u]}{(z-f(u))}.
+\end{align*}
+We are interested in whether $u$ can be expressed in terms of $z$, and via a Hilbert irreducibility argument, this is tantamount to asking whether $u$ can be expressed in terms of elements in the base field $K$ in the extension
+\begin{align*}
+    K \hookto \frac{K[u]}{f(u)-\zeta},
+\end{align*}
+obtained by specializing $z$ to some value $\zeta\in K$. This question we know to be approachable from the perspective of Galois theory.
+
+\begin{theorem}[Galois] If $L :=K[u]/f(u)$ is a separable extension of $K$, then $u$ is solvable in radicals if and only the Galois group $\Gal(L/ K)$ is a solvable group.
+\end{theorem}
+
+\subsection{From Galois groups of fields to enumerative problems}
+
+In the early decades of Galois theory, mathematicians were interested in generalizing \Cref{solvable-bivariate-polynomial} away from the setting of univariate expressions $z = f(u)$, and towards more general polynomials $F(u,z) = 0$. A pillar in this direction is Hermite's work on algebraic functions \cite{Hermite51}, which could be considered the genesis of the alignment between Galois groups and monodromy groups. We recount his story in the notation of that paper but in contemporary language.
+
+Consider $Y = V(F(u,z))$ as a subvariety of $\P^1 \times \P^1$, and let $\pi \colon Y \to \P^1$ be the projection onto the $z$-coordinate. Over a point $\zeta\in \P^1$, the fibers $\pi^{-1}(\zeta)$ are precisely the roots of the univariate polynomial $F(u,\zeta)=0$. Assuming that $F$ is homogeneous of degree $m$, we have that $\pi$ is generically $m$-to-$1$.
+
+The projection $\pi$ has some ramification locus, however, and we denote this by
+\begin{align*}
+    \left\{ z_0, z_1, \ldots, z_{\mu-1} \right\} \subseteq \P^1.
+\end{align*}
+These are precisely the values of $z$ for which $F(u,z_i)$ has repeated roots. Pick some point $P \in \P^1$, not in the ramification locus, and let
+\begin{align*}
+    \pi^{-1}(P) = \left\{ u_0, u_1, \ldots, u_{m-1} \right\}.
+\end{align*}
+Note that any class in $\pi_1(\P^1\minus \{z_0, \ldots, z_{\mu-1}\},P)$ induces a permutation on the roots $\left\{ u_0, \ldots, u_{m-1} \right\}$. This is called the \textit{monodromy action}. Hermite argues the following.\footnote{Hermite \textit{proves} this in his paper, but it's a matter of opinion whether the two paragraphs of proof hold up to modern standards of rigor.}
+
+\begin{theorem}[{\cite{Hermite51}}]
+A function in the roots $u$ is a rational function in $z$ if and only if it is invariant under the permutations obtained from lifting paths in $\pi_1(\P^1\minus \{z_0, \ldots, z_{\mu-1}\},P)$ (cf.~\cite{Harris-Galois}).
+\end{theorem}
+We will discuss a modern proof of this in a much more general setting following Harris (\Cref{prop:gal-equals-mon}). In the years following Hermite, it became clear that these questions could be approached in the setting where we might have more variables and more equations. This leads us to the study of Galois groups of a \textit{system} of equations. A natural source for such systems of equations came from the burgeoning field of enumerative algebraic geometry, and Jordan was the first to envision how Galois theory would be used here.
+
+\subsection{Galois groups in enumerative geometry, a la Jordan}
 
 \begin{question} Given an enumerative problem, to what field extension do we need to pass to in order to find all its solutions?
 \end{question}
@@ -92,7 +136,7 @@ The six subsections of Chapter III in Jordan's book are dedicated to particular 
     \item[III.VI] Again following Clebsch, fix a curve $C$ of order $n$ and $\frac{n(n-3)}{2}$ points on it. Can we determine the curves of order $n-3$ intersecting $C$? For example if $n=4$, can we determine all the 28 bitangents to $C$?
 \end{itemize}
 
-The idea of a \textit{Galois group} of an enumerative problem is a setting in which we can capture these kinds of algebraic questions. The right way to phrase these kinds of questions is in the language of generically finite maps of varieties.
+With this in mind, let's see how to generalize Hermite's result and give a contemporary proof.
 
 \subsection{Setup and goal}
 
@@ -179,7 +223,8 @@ Let $X$ be a Riemann surface, and consider a path $\gamma \colon [0,1] \to X$, a
 
 We are going to prove the following:
 
-\begin{proposition} The Galois group $G$ equals the monodromy group $M$ in our setup.
+\begin{proposition}\label{prop:gal-equals-mon}
+The Galois group $G$ equals the monodromy group $M$ in our setup.
 \end{proposition}
 
 The first step is to argue that $M \subseteq G$. That is, any permutation coming from monodromy can be realized by an automorphism of $L$ over $K$. This follows via analytic continuation!
@@ -312,42 +357,58 @@ The incidence variety $I_d$ is irreducible.
 \begin{proof} We can consider the projection $\eta \colon I_d \to I_0$. Since $I_0$ is irreducible, we will be able to conclude (by \Cref{prop:irred-criterion}) that $I_d$ is irreducible if $\eta$ has equidimensional fibers. Indeed we can check that the fiber of $\eta$ over any point $(p,\ell) \in I_0$ is exactly those degree $d$ plane curves with a flex line $\ell$ at the point $p$. This is always a codimension three linear subspace of $W_d$.
 \end{proof}
 
-We now want to argue that the monodromy group $\Mon(\pi)$ acts transitively on the fibers of $\pi$. By covering space theory, it will suffice to argue that, by restricting to the locus $U \subseteq W_d$ over which $\pi$ is unramified, the fiber $\pi^{-1}(U)$ is connected.
+Leveraging irreducibility of $I_d$, we can now argue that $\Mon(\pi)$ acts transitively on the fibers of $\pi$.
 
 \begin{proposition}\label{prop:monodromy-flexes-transitive} 
-The monodromy group acts transitively on the fibers of $\pi$.
+The monodromy group $\Mon(\pi)$ acts transitively on the fibers of $\pi$ over any unbranched point in $W_d$.
 \end{proposition}
-\begin{proof} todo
+\begin{proof} Let $U \subseteq W_d$ be a Zariski open set over which $\pi$ is unbranched, and hence a topological covering space. By covering space theory, the monodromy group will be transitive if and only if $\pi^{-1}(U)$ is connected. This is true because $\pi^{-1}(U) \subseteq I_d$ is a Zariski open subset of an irreducible variety (\Cref{prop:Id-irred-flexes}), hence topologically connected.\footnote{%
+If not, we could write $\pi^{-1}(U)$ as the union of two disjoint Zariski open subsets, but this is a contradiction, because irreducibility of $I_d$ means any two nonempty opens necessarily intersect.} 
 \end{proof}
 
 
-\begin{proposition} The monodromy group is $2$-transitive on the fibers of $\pi$.
+\begin{proposition} The monodromy group $\Mon(\pi)$ is $2$-transitive.
 \end{proposition}
-\begin{proof} todo
+\begin{proof} Let $(p_0,\ell_0) \in I_0$ be a fixed point and flex on some fixed curve $C_0$, and let $\Stab_{(p_0,\ell_0)} \le \Mon(\pi)$ be its stabilizer in the monodromy group. We let
+\begin{align*}
+    \Flex_{(p_0,\ell_0)} := \left\{ C\in W_d \mid m_{p_0}(C\cdot \ell_0)\ge 3 \right\},
+\end{align*}
+and consider the incidence variety 
+\begin{align*}
+    I' := \{(C,p,\ell)\in \Flex_{(p_0,\ell_0)} \times I_0 \mid m_p(C\cdot \ell) \ge 3,\ p\ne p_0,\ \ell\ne \ell_0\} \subseteq \Flex_{(p_0,\ell_0)} \times I_0.
+\end{align*}
+It suffices to argue that $I'$ is irreducible, since then if $U$ is as in the proof of \Cref{prop:monodromy-flexes-transitive}, we will have that $\pi^{-1}(U) \cap I'$ is connected. Again we use $\eta$, and we get a map
+\begin{align*}
+    \eta \colon I' \to I_0.
+\end{align*}
+This surjects onto the Zariski open $\left\{ (p,\ell) \mid p\ne p_0,\ \ell\ne \ell_0 \right\} \subseteq \P^2 \times (\P^2)^\ast$, which is a Zariski open subset of the irreducible variety $I_0$, and hence itself irreducible. The fibers of $\eta$ are linear spaces of constant codimension $3$, hence again by \Cref{prop:irred-criterion}, we conclude that $I'$ is irreducible.
 \end{proof}
 
 
 To argue that the monodromy group is full symmetric, it suffices to exhibit a transposition. Here we use this key lemma:
 
-\begin{lemma}[{\cite[p.~698]{Harris-Galois}}] Let $\pi \colon Y \to X$ be holomorphic of degree $n$, and suppose there exists some $p\in X$ so that $\pi^{-1}(p) = \left\{ q_1, \ldots, q_{n-1} \right\}$ has $(n-1)$ distinct points, so that $\pi$ is simple at $q_1, \ldots, q_{n-2}$, and $\pi$ has a double point at $q_{n-1}$. Suppose further that $Y$ is locally irreducible at $q_{n-1}$. Then the monodromy group of $\pi$ contains a simple transposition, obtained by taking a small loop around $p$.
+\begin{lemma}[{\cite[p.~698]{Harris-Galois}}] 
+\label{lem:transposition-exists}
+Let $\pi \colon Y \to X$ be holomorphic of degree $n$, and suppose there exists some $p\in X$ so that $\pi^{-1}(p) = \left\{ q_1, \ldots, q_{n-1} \right\}$ has $(n-1)$ distinct points, so that $\pi$ is simple at $q_1, \ldots, q_{n-2}$, and $\pi$ has a double point at $q_{n-1}$. Suppose further that $Y$ is locally irreducible at $q_{n-1}$. Then the monodromy group of $\pi$ contains a simple transposition, obtained by taking a small loop around $p$.
 \end{lemma}
-\begin{proof} todo
-\end{proof}
-
 
 So we'd like to locate a planar curve with $3d(d-2) - 2$ simple flexes, and exactly one \textit{hyperflex}. Note at the hyperflex the tangent line will meet to order $\ge 4$, and in particular this would violate B\'{e}zout's theorem if $d \le 3$.
 
 \begin{theorem} For $d\ge 4$, the monodromy group of $I_d \xto{\pi} W_d$ is the full symmetric group $\Sigma_{3d(d-2)}$.
 \end{theorem}
-\begin{proof} Fix a point $(p_0,\ell_0) \in I_0$, and consider the linear system of degree $d$ curves with a hyperflex at $(p_0,\ell_0)$:
+\begin{proof} We want to apply \autoref{lem:transposition-exists}, so we need to show that a curve with exactly $3d(d-2)-1$ flexes exists, with a simple hyperflex at exactly one of these flexes, and no other interesting behaviors (no singularities or anything). We moreover need to argue that $I_d$ is locally irreducible at this tuple.
+
+To exhibit such a curve, we start with a fixed point $(p_0,\ell_0) \in I_0$, and consider the linear system of degree $d$ curves with a (possibly higher order) hyperflex at $(p_0,\ell_0)$:
 \begin{align*}
-    W'' = \left\{ C \in W \colon m_{p_0}(C\cdot \ell_0) \ge 4 \right\} \subseteq W.
+    \HypFlex_{(p_0,\ell_0)} := \left\{ C\in W_d \colon m_{p_0}(C\cdot \ell_0) \ge 4 \right\} \subseteq W_d.
 \end{align*}
-A general $C \in W''$ is smooth at $p_0$ with $\ell_0$ a simple hyperflex (the multiplicity is exactly four). How do we know that the general element in $W''$ has only simple flexes at the other flex points though? Consider the incidence correspondence
+We claim that the generic $C \in \HypFlex_{(p_0,\ell_0)}$ is smooth.\footnote{Zhang says this follows from Bertini's theorem.} We claim that the generic degree $d$ curve with a hyperflex at $(p_0,\ell_0)$ has simple flexes at all other points. To see this, we first set up the incidence variety
 \begin{align*}
-    I'' = \left\{ (C,p,\ell) \colon m_p(C\cdot \ell) \ge3,\ p\ne p_0,\ \ell\ne \ell_0 \right\} \subseteq W'' \times I_0.
+    I'' := \left\{ (C,p,\ell) \in \HypFlex_{(p_0,\ell_0)} \times I_0 \mid m_p(C\cdot \ell)\ge 3,\ p\ne p_0,\ \ell\ne \ell_0  \right\} \subseteq \HypFlex_{(p_0,\ell_0)} \times I_0.
 \end{align*}
-The fibers of $\eta \colon I'' \to I_0$ are linear of codimension three in $W''$, therefore $I''$ is irreducible of dimension $\dim I'' = \dim W''$ (todo: why?). Then...
+Note that $I''$ is irreducible (via analogous arguments to the ones we've used to show $I_d$ and $I'$ are irreducible previously). The dimension of $I''$ is the same as the dimension of $\HypFlex_{(p_0,\ell_0)}$.
+
+We claim now that the general $(C,p,\ell) \in I''$ has the property that $p$ is a simple flex of $C$. Indeed the locus in $I''$ of curves with multiple hyperflexes is closed, hence is either equal to $I''$ or of strictly smaller dimension. We claim we cannot have equality -- TODO how does this argument wrap?
 \end{proof}
 
 \subsection{Flexes on a plane cubic: geometric properties}
