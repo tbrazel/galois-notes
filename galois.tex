@@ -277,9 +277,9 @@ In either of these approaches, we obtain the Abel--Ruffini theorem as an immedia
 
 The study of high degree plane curves (degrees three or greater) dates back to Newton, but one of the first major results in this are came from Pl\"{u}cker (\textit{System der analytischen Geometrie}, page 264).
 
-\begin{theorem}[Plucker, 1835] A general degree $d$ planar curve has $3d(d-2)$ inflection points.
+\begin{theorem}[Pl\"ucker, 1835] A general degree $d$ planar curve has $3d(d-2)$ inflection points.
 \end{theorem}
-Pl\"{u}cker proved this by equation-bashing. We provide a slightly differeent proof, due to Hesse but likely predating him (see \cite[p.~169]{Gray-worlds}).
+Pl\"{u}cker proved this by equation-bashing. We provide a slightly different proof, due to Hesse but likely predating him (see \cite[p.~169]{Gray-worlds}).
 
 \begin{proof}[Hesse's proof]
 Recall that the radius of curvature of a planar curve $F(x,y,z)=0$ at a point $(x_0,y_0,z_0)$ is the reciprocal of $\det(HF)_{|(x_0,y_0,z_0)}$, where $HF$ is the Hessian matrix of $F$. Note that the equation $\det HF=0$ is homogeneous of degree $3(d-2)$, and note further that a flex on a curve is precisely a point with infinite curvature radius. Hence we can count inflection points on $F$ via the intersection with its Hessian curve, hence by B\'{e}zout's theorem we have $3d(d-2)$ flexes.
@@ -900,9 +900,157 @@ so this is the same as saying $h^1(N)>0$.
 \end{enumerate}
 \end{remark}
 
+\section{Lines on cubic surfaces}
+
+\subsection{The topology of cubic surfaces}
+
+Recall that a cubic surface $S \subseteq \P^3$ is the blowup of $\P^2$ at six general points, which we will denote by $S = \Bl_{p_1, \ldots, p_6}\P^2$. We denote by $E_i$ the exceptional divisor above $p_i$ for $i=1, \ldots, 6$. Let $H$ be the hyperplane class on $\P^2$.
+
+As smooth manifolds, $S$ is diffeomorphic to $\P^2\# 6\overline{\P^2}$. Hence by Mayer--Vietoris, we get that the Neron--Severi group\footnote{The image of $c_1$.} of $S$ is 
+\begin{align*}
+    \NS(S) = H^2(S,\Z) = \Z\{H,E_1, \ldots, E_6\}.
+\end{align*}
+This is a rank 7 $\Z$-module, equipped with an intersection form given by the cup product. Adjunction tells us that the canonical class $K_S$\footnote{The canonical class pulls back under blowups --- recall that $K_{\P^2} = -3H$.} is given by
+\begin{align*}
+    K_S = -3H + E_1 + \ldots + E_6.
+\end{align*}
+Cubic surfaces are \textit{anticanonically} embedded in $\P^3$, given by taking global sections of the anticanonical bundle. This tells us that the intersection of $D \subseteq S$ and $-K_S$ records how (un)twisted $D$ is in $S$.
+
+Finally, we note that we get a splitting of cohomology
+\begin{align*}
+    H^2(S,\Z) = \Z\{K_S\} \oplus \Z\{K_S\}^\perp.
+\end{align*}
+The orthogonal piece $\Z\{K_S\}^\perp$ is called the integral \textit{primitive cohomology} of $S$.\footnote{This borrows language from Hodge theory. Since cubic surfaces are anticanonically embedded, we have a canonical choice of K\"{a}hler class on $S$. The word ``primitive'' comes from the theory of highest weights.} We will denote by $V$ or $V_\Z$ the primitive cohomology of $S$.
+
+\subsection{Counting lines on a cubic surface}
+
+\begin{proposition} The exceptional curves $E \subseteq S$ are exactly the lines in $S$.
+\end{proposition}
+\begin{proof} Exceptional implies that the genus of these curves are zero, and the self intersection is $E\cdot E = -1$. By the degree-genus formula (or adjunction or whatever), we have
+\begin{align*}
+    g(E) = 1 + \frac{K_S\cdot E + E\cdot E}{2}.
+\end{align*}
+Solving, we get $K_S\cdot E = -1$. This is true if and only if $(-K_S)\cdot E =1$, thus $E$ is linearly embedded in $\P^3$.
+\end{proof}
+
+So counting lines on $S$ is the same as counting exceptional curves in homology. Let $E$ be an arbitrary element of the form
+\begin{align*}
+    E = \alpha H - \sum_{i=1}^6 c_i E_i.
+\end{align*}
+Since $c_i = E\cdot E_i$, and if we are assuming both $E$ and $E_i$ are lines, then either $c_i = 0$ or $1$ by B\'{e}zout's theorem. Moreover, we have that
+\begin{align*}
+    1 &= E\cdot (-K_S) = \left( \alpha H - \sum c_i E_i \right)\cdot (3H - E_1 - \ldots - E_6) \\
+    &= 3\alpha - \sum c_i.
+\end{align*}
+We have two possible cases:
+\begin{enumerate}
+    \item If $\alpha = 1$ then exactly two $c_i$'s must be equal to 1. These lines are $L_{ij}$, which are the strict transform of the line $\overline{p_i p_j} \subseteq \P^2$.
+    \item If $\alpha = 2$ then \textit{five} of the $c_i$'s must be equal to $1$. This line is denoted $C_i$, which is the strict transform of the conic passing through $\left\{ p_1, \ldots, p_6 \right\}\minus \left\{ p_i \right\}$.
+\end{enumerate}
+Altogether we have
+\begin{align*}
+    \underset{\text{exceptional lines}}{6} + \underset{\text{the }L_{ij}\text{'s}}{\binom{6}{2}} + 6 = 27.
+\end{align*}
+%
+\begin{theorem} There are $27$ lines on $S$.
+\end{theorem}
+
+\subsection{The intersection form and its quadratic refinement}
+
+Let $Q$ be the intersection form on mod $2$ cohomology, and $V$ the mod 2 primitive cohomology -- i.e. all classes which are $Q$-orthogonal to $K_S$ modulo $2$. The restricted form
+\begin{align*}
+    Q \colon V \times V \to \Z/2
+\end{align*}
+is skew-symmetric. That is, for all $D \in V_\Z$, we have that
+\begin{align*}
+    1 + \frac{K_S\cdot D + D\cdot D}{ 2 } = 1 + \frac{D\cdot D}{2} \in \Z.
+\end{align*}
+Hence $D \cdot D = Q(D,D) \equiv 0 \pmod{2}$.
+
+Thus there is a \textit{quadratic refinement} $q$ of $Q$ given by
+\begin{align*}
+    q \colon V &\to \Z/2 \\
+    \bar{D} &\mapsto \frac{D\cdot D}{2} \pmod{2}.
+\end{align*}
+%
+We claim this \textit{remembers} the 27 lines. Explicitly, given an exceptional curve $E \subseteq S$, we have that
+\begin{align*}
+    (E + K_S)(-K_S) = 1 - 3 \equiv 0 \pmod{2}.
+\end{align*}
+This implies $E + K_S\in V$ by definition. Let's evaluate on $q$:
+\begin{align*}
+    q(E + K_S) &= \frac{(E + K_S)\cdot (E + K_S)}{2} \\
+    &= \frac{1 - 3 + 2}{2} = 0.
+\end{align*}
+Thus, we get a well-defined map
+\begin{align*}
+\{\text{exceptional curve}\} &\to \{\text{roots of }q\} \\
+    E &\mapsto q(E+K_S).
+\end{align*}
+Moreover this is injective, because all exceptional curves are distinct, and $-K_S$ is not exceptional. Observe that
+\begin{align*}
+    E = \alpha H - \sum c_i E_i \pmod{2}
+\end{align*}
+intersects to the form
+\begin{align*}
+    q(E) = \alpha^2 - \sum c_i^2.
+\end{align*}
+We can check that for $\alpha,c_i \in \{0,1\}$, the quantity $q(E)$ is a multiple of 4 exactly 28 times. One of these is trivial (when everything is zero).
+
+Thus $q$ has $27+1$ zeros. Since $q$ has 27 distinct roots and 27 is odd, we call $q$ an \textit{odd} quadratic refinement.
+
+\subsection{Automorphisms and monodromy}
+
+\begin{proposition} Let $\Gamma$ be the set of lines in $S$. The incidence-preserving permutation group of $\Gamma$ is isomorphic to $\Aut(V,Q,q)$. This is abstractly isomorphic to the \textit{odd} orthogonal group $O^-(6,\Z/2)$. The minus sign is recording that $q$ is an \textit{odd} quadratic refinement of $Q$.
+\end{proposition}
+\begin{proof} Clearly $\Gamma$ spans $H^2(S,\Z)$, so any permutation of $V$ which preserves $Q$ extends linearly to all of $H^2(S,\Z)$. The anticanonical class can be written as
+\begin{align*}
+    -K_S = (H - E_1 - E_2) + (H - E_3 - E_4) + (H - E_5 - E_6),
+\end{align*}
+which is the sum of three mutually intersecting lines. Hence $-K_S$ is also fixed by the incidence-preserving permutation group of $\Gamma$. Since $-K_S$ is fixed, so is its orthogonal complement, i.e. primitive cohomology. Here $\sigma$ induces an action on $V \subseteq H^2(S,\Z/2)$ which preserves $Q$ and $q$. Moreover any induced permutation of the roots of $q$ can be used to rebuild the permutation $\sigma$ of $\Gamma$. Thus $\Aut(\Gamma) \cong O^-(6,\Z/2)$.
+\end{proof}
+
+Observe that six pairwise disjoint lines, together with $-K_S$, span all of $H^2(S,\Z)$. Hence an element of $O^-(6,\Z/2)$ is determined by what it does to six disjoint lines. Let
+\begin{align*}
+    \Omega = \left\{ \text{sets of }6\text{ disjoint lines} \subseteq S \right\}.
+\end{align*}
+We can directly verify that this group has order 72. This implies that
+\begin{align*}
+    |O^-(6,\Z/2)| = 6! \cdot |\Omega| = 51840.
+\end{align*}
+%
+Let's call $\sigma\in O^-(6,\Z/2)$ \textit{elementary} if $\sigma(\gamma) = \gamma$ for \textit{some} $\gamma\in \Omega$. That is, for some choice of six disjoint lines, $\gamma$ acts by permuting them amongst themselves.
+
+\begin{proposition} The group $O^-(6,\Z/2)$ is \textit{generated} by elementary elements.
+\end{proposition}
+\begin{proof} Let $G' \le O^-(6,\Z/2)$ be the subgroup generated by elementary elements, and let $\Omega' \subseteq \Omega$ be the orbit of $\left\{ E_1, \ldots, E_6 \right\}$ under $G'$. We can see that
+\begin{align*}
+    |G'| = 6! |\Omega'| = 720|\Omega'|
+\end{align*}
+and since $|G'|$ divides $51840$, we have that $|\Omega'|$ divides $72$. Notice that all $72$ families of disjoint $6$ lines are acted upon transitively by the permutations of $\left\{ E_1, \ldots, E_6 \right\}$. The point is that $\Omega'$ is a union of these subfamilies, and the only union having the right order is of size $72$, so $\Omega' = \Omega$.
+\end{proof}
+
+The monodromy group of 27 lines on cubic surfaces is clearly a subgroup $M \le O^-(6,\Z/2)$. This is exactly saying that monodromy proves the incidence structure of lines on a cubic surface. What turns out to be true is that this is equality.
+
+\begin{theorem} $M$ contains all elementary automorphisms, hence $M = O^-(6,\Z/2)$.
+\end{theorem}
+\begin{proof} Given some $\sigma \in O^-(6,\Z/2)$ we want to produce a path in the moduli space inducing that permutation. Suppose $\sigma$ permutes $E_1, \ldots, E_6$ on $S$. Blowing down to $\P^2$, $\sigma$ defines a map permuting $p_1, \ldots, p_6$. Draw some paths from $p_i$ to $p_{\sigma(i)}$. Since being in general position is Zariski open in $(\P^2)^{\times6}$, we can take the paths $p_i(t)$ connecting $p_i$ to $p_{\sigma(i)}$ to also be in general position for all times $0\le t \le 1$. We get cubic surfaces
+\begin{align*}
+    S_t = \Bl_{p_1(t), \ldots, p_6(t)},
+\end{align*}
+still anticanonically embedded in $\P^3$. Moreover global sections 
+\begin{align*}
+    s_0(t), \ldots, s_3(t) \in H^0(S_t, -K_{S_t})
+\end{align*}
+are \textit{also} varying continuously. Thus the monodromy action given by this path in $(\P^2)^{\times6}-\Delta$ induces $\sigma$ again.
+\end{proof}
 
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
+
 \section{Algebraic geometry terms and references}
 
 Here are some terms and results, laid out in the order we need to use them throughout the notes.
