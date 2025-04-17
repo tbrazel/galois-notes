@@ -37,6 +37,7 @@
 \providecommand{\Flex}{\mathrm{Flex}}
 \providecommand{\HypFlex}{\mathrm{HypFlex}}
 \providecommand{\Mon}{\mathrm{Mon}}
+\providecommand{\NS}{\mathrm{NS}}
 \providecommand{\res}{\mathrm{res}}
 \providecommand{\UConf}{\mathrm{UConf}}
 
@@ -1046,7 +1047,101 @@ are \textit{also} varying continuously. Thus the monodromy action given by this 
 \end{proof}
 
 
+\section{Galois groups to bitangents, part II}
 
+Goal today:
+\begin{enumerate}
+    \item recap the moduli problem
+    \item prove a lemma
+    \item compute the stabilizer of a bitangent
+    \item show that $M$ isn't solvable.
+\end{enumerate}
+
+\subsection{What we know}
+
+By the Pl\"{u}ocker formula, we have 28 bitangents, so we have an irreducible cover
+\begin{align*}
+    I_4 \to W_4 = \mathbb{P} \left( H^0(\P^2, \O(4)) \right).
+\end{align*}
+Recall $J(C)\cong \C^3/\Lambda$, so we get a strictly skew-symmetric bilinear form
+\begin{align*}
+    Q \colon V \times V \to \mathbb{F}_2
+\end{align*}
+induced by intersection of cycles, hence preserved by $M$. For any $v\in V$, we have that $v + k_0$ is effective if and only if $q(v) = 0$ (here $k_0$ is a fixed root of $K_C$).
+
+\emph{Conclusion}: We have that $M \subseteq H$, where $H$ is the Steiner subgroup of $\text{AO}_6(\Z/2)$. This Steiner subgroup is the one preserving the zeros of $q$.
+
+\textbf{Fact}: $H \cong O_6(\Z/2)$.
+
+We want to prove
+
+\begin{theorem} We have $M \cong H$.
+\end{theorem}
+
+As a remark, since $I_4$ is irreducible, we have that $M$ acts transitively, so it is enough to show that $\Stab_M(\ell_0) = O_6^-(\Z/2)$ for any bitangent $\ell_0$. Note this was the Galois group for 27 lines!
+
+\subsection{Relation to 27 lines}
+
+Let $S \subseteq \P^3$ be an (anti-canonically embedded) smooth cubic surface, and $p \in S$ not lying on any line. Then we can project away from $p$, and extend this to a blowup
+\[ \begin{tikzcd}
+    \til{S}\rar\dar & \P^2\\
+    S\ar[ur,dashed] & \\
+\end{tikzcd} \]
+then $\til{\pi}_p \colon \til{S} \to \P^2$ is a double cover ramified over a smooth quartic $C$.
+
+\begin{lemma} ..
+\end{lemma}
+\begin{proof} Let $B \subseteq \P^2$ be the branch locus of $\til{\pi}_p$. To get its degree, we take $\ell$ to be a generic line on the plane, so we get $\overline{\ell_p} =: H_p \subseteq \P^3$ intersects $S$ in a smooth curve $C_\ell$ and $H$ is nowhere tangent to $S$. The strict transform of $C_\ell$ is
+\begin{align*}
+    \til{\pi}_p \colon \til{C}_\ell \to \ell,
+\end{align*}
+which is 2:1. We know that $\deg C_\ell = 3$ smooth in $H$, hence $g(C_\ell) = 1 = g(\til{C}_\ell)$. Hence $\tilde{\pi}_p$ has 4 ramification points all with multiplicity 1. So $B$ has degree 4.
+
+To get smoothness of $B$, we take some $q\in \P^2$ and $\ell \subseteq H$ generic so that $q\in \ell$. Then $H_\ell$ meets $S$ transversely,\footnote{The generic plane passing through $\overline{pq}$ is not tangent to any point of $\overline{pq}\cap S$, plus Bertini.} so by the degree computation, $\ell\cap B$ is four points, so $B$ is non-singular.
+\end{proof}
+
+\begin{remark} We have also shown that if $\ell \subseteq \P^2$ so that $\overline{p \ell} \cap S = C_\ell$ is a smooth curve, then $\# \ell\cap B = 4$, hence $\ell$ is not a bitangent.
+\end{remark}
+
+\begin{proof}[Lemma 2] Let $Q\in \til{B}$, where $\til{B}$ is the set-theoretic image $\til{\pi}_p(B)$. Let $q\in B$ be $\til{\pi}_p Q$, and let $\ell_0 = T_q B$. Then $\overline{pQ} \subseteq T_Q S$ (since $q\in B$) and $T_Q \til{B} \subseteq T_Q S$ (since $\til{B} \subseteq S$). And $H_{\ell_0} = T_Q S$.
+
+Upshot: $\ell \subseteq \P^2$ is tangent to $q\in B$ iff $H_\ell$ is tangent to $S$ at $Q$, iff $C_\ell = H_\ell\cap S$ is singular at $Q$ (here $q = \til{\pi}_p(Q)$).
+
+Let $L_1, \ldots, L_{27}$ be the lines on $S$, and $\ell_1, \ldots, \ell_{27}$ their images in $\P^2$ under $\pi_p$. Since the lines $L_i$ don't contain $p$, we have that $\ell_i$ is a line. Moreover, $\ell_i \ne \ell_j$ for $i\ne j$. This is because otherwise we would have $H_{\ell_i} = H_{\ell_j}$, so a sum of three lines contains $p$...
+
+By construction for all $i$, we have $H_{\ell_i} = L_i + C_i$, where $C_i$ is a smooth conic curve, and $C_i \cap L_i = \left\{ Q_i,R_i \right\}$. If we let $q_i = \pi_p(Q_i)$ and $r_i = \pi_p(Q_i)$, then these are points of tangency of $\ell_i$ with $B$. It might be, however, that $q_i = r_i$.
+
+If $q_i \ne r_i$, then $\ell_i$ is a \textit{bitangent}. If $q_i = r_i$, then $C_i$ is tangent to $L_i$ at $Q_i = R_i$ and any line $L \ne \overline{PQ_i}$ passing through $P$ intersects $C_i$ and $L$ at two distinct points, hence $\ell_i$ meets $B$ only at $q_i$. This is a hypeflex of $B$.
+
+Let $D = T_p S \cap S$, which is a cubic curve with a singularity at $p$, and $\ell_{28} = \pi_p(D)$ (same as taking $\til{\pi}_p$ of the exceptional divisor). The intersection doesn't split, it is just a singular irreducible cubic. If we get a node, then $\ell_{28}$ is a bitangent. If we get a cusp, then $\ell_{28}$ is a hyperflex. And actually the converse holds as well.
+\end{proof}
+
+\subsection{}
+
+We identified the set of bitangents with a sub\textit{set} $\Gamma \subseteq V \cong \mathbb{F}_2^6$. The results of this previous section yield an identification
+\begin{align*}
+    V\cong P(S, \Z/2)
+\end{align*}
+between $V$ and the primitive mod two cohomology in $H^2(S,\Z/2)$. This isomorphism respects the quadrati forms $q$ on $V$ and the intersection form on $P(S,\Z/2)$.
+
+\begin{lemma}  $\Stab_M(\ell_0) = O_6^-(\Z/2)$.
+\end{lemma}
+\begin{proof}  Take any path $\gamma$ in $\P^{19}$ which preserves a fixed point $p$ on every surface $S_t$ appearing on the path, and $T_p S_t$ so that $\ell_{28} = \ell_0$ for every $t$. This is a path on $\P^{14}$ which is the space of plane quartics. The monodromy action of $\gamma$ fixes $\ell_{28}=\ell_0$ and the action on the lines $L_1, \ldots, L_{27}$ corresponds to the monodromy action of $\gamma$ on the remaining bitangents $\ell_{1}, \ldots, \ell_{27}$.
+\end{proof}
+
+\subsection{the Galois group}
+
+We know that the Galois group is equal to $O_6(\Z/2)$ with quotient $O_6^-(\Z/2)$.
+
+We know it's not solvable, since $O_6^-(\Z/2)$ isn't (it's isomorphic to $W(E_6)$ which has an index two subgroup $U_4(2)$ which is simple).
+
+\begin{question} How many bitangents, in what position, do I need to solve for the other one?
+\end{question}
+
+
+Given three bitangents $\ell_0, \ell_1, \ell_2$ whose points of intersection lie on a common conic, we can construct the cubic surface $S$ associated to $C$ and $\ell_0$, so $\ell_1$ and $\ell_2$ correspond to intersecting lines. Then the corresponding group fixes the tangent plane $L_1 + L_2 + L_3$, so it sits inside a subgroup of $W(E_6)$ isomorphic to $(A_4 \times A_4) \rtimes (\Z/2)^3$, hence solvable.
+
+Given four bitangents $\ell_0, \ldots, \ell_3$ whose points of contact do \textit{not} lie on a conic, construct $S$ and then $\ell_0$ becomes 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
