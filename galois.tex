@@ -3,7 +3,7 @@
 
 % Bibliography stuff
 \usepackage[doi=false,isbn=false,url=false,style=alphabetic]{biblatex}
-\bibliography{citations.bib}
+\bibliography{citationsgalois.bib}
 
 
 \input{commands/commands.tex}
@@ -33,12 +33,15 @@
 \setlength{\epigraphwidth}{0.8\textwidth}
 
 \providecommand{\ASL}{\mathrm{ASL}}
+\providecommand{\Bitan}{\mathrm{Bitan}}
 \providecommand{\Conf}{\mathrm{Conf}}
 \providecommand{\Flex}{\mathrm{Flex}}
+\providecommand{\Flextan}{\mathrm{Flextan}}
 \providecommand{\HypFlex}{\mathrm{HypFlex}}
 \providecommand{\Mon}{\mathrm{Mon}}
 \providecommand{\NS}{\mathrm{NS}}
 \providecommand{\res}{\mathrm{res}}
+\providecommand{\Tan}{\mathrm{Tan}}
 \providecommand{\UConf}{\mathrm{UConf}}
 
 \fancyfoot[C]{\thepage}
@@ -1142,6 +1145,198 @@ We know it's not solvable, since $O_6^-(\Z/2)$ isn't (it's isomorphic to $W(E_6)
 Given three bitangents $\ell_0, \ell_1, \ell_2$ whose points of intersection lie on a common conic, we can construct the cubic surface $S$ associated to $C$ and $\ell_0$, so $\ell_1$ and $\ell_2$ correspond to intersecting lines. Then the corresponding group fixes the tangent plane $L_1 + L_2 + L_3$, so it sits inside a subgroup of $W(E_6)$ isomorphic to $(A_4 \times A_4) \rtimes (\Z/2)^3$, hence solvable.
 
 Given four bitangents $\ell_0, \ldots, \ell_3$ whose points of contact do \textit{not} lie on a conic, construct $S$ and then $\ell_0$ becomes 
+
+\section{Steiner's conics}
+
+In 1848, Jakob Steiner computed the count of smooth conics tangent to five given conics on the plane as 7776. In 1864, Chasles provided the correct answer, 3264, the namesake of the famous contemporary text on enumerative geometry \cite{3264}. In unpublished work, Higman proved the Galois group is $2$-transitive, and Harris demonstrated it is the full symmetric group $\Sigma_{3264}$ \cite[\S~IV]{Harris-Galois}. We'll recount this story here.
+
+\subsection{Steiner's argument and Chasles' correction}
+
+We let $\P^5 \cong \P\Gamma(\O_{\P^2}(2))$ the moduli space of planar conic forms. For a given smooth conic $C$, we let
+\begin{align*}
+    \Tan_C \subseteq \P^5
+\end{align*}
+the locus of conics which are tangent to $C$.
+
+\begin{proposition}\label{prop:tanC-irred-hypersurface-deg6} 
+We have that $\Tan_C$ is an irreducible hypersurface of degree six (see e.g. \cite[p.~290]{3264})
+\end{proposition}
+\begin{proof} We consider the incidence correspondence
+\[ \begin{tikzcd}
+    {\left\{ (C',p) \in \P^5 \times C \mid m_p(C\cdot C')\ge 2\right\}}\rar["\pi_2"]\dar["\pi_1" left] & C\\
+    \Tan_C. & 
+\end{tikzcd} \]
+Note that $\pi_2^{-1}(p)$ consists of all conics passing through $p$ and having tangent line equal to $T_pC$ at $p$. This is a hypersurface of degree three in $\P^5$.\footnote{Being tangent to a given line is a degree two condition, and fixing a point of tangency along the line adds an additional condition.} Therefore we claim $\Tan_C$ is also an irreducible hypersurface. To compute the degree of $\Tan_C$, we take a general pencil of conics and compute the intersection with $\Tan_C$. A pencil of conics is $|\O_{\P^1}(2)|$, and hence cuts out a linear series on $C$ of degree four. This gives us a map $C \to \P^1$ of degree four, and Riemann--Hurwitz implies it has six branch points.
+\end{proof}
+
+\begin{theorem}[{\cite[p.~189]{Steiner-conics}}]
+Given five smooth conics $C_1, \ldots, C_5$, we have by B\'{e}zout's theorem that
+\begin{align*}
+    \deg(\Tan_{C_1} \cap \cdots \cap \Tan_{C_5}) = 6^5 = 7776.
+\end{align*}
+\end{theorem}
+
+%
+What is wrong with this argument? Consider the point $[1:0: \ldots : 0]\in \P^5$. It corresponds to the ``conic'' given by $x^2 = 0$. This is not a conic, but rather a doubled line. Nevertheless, it is tangent to any other conic at the two points of intersection, hence we have a continuous family of conics counted in the intersection $\cap_{i=1}^5 \Tan_{C_i}$. We should view this as an inevitable feature of the fact that we used a not-so-good moduli space of conics to do this problem.
+
+Ernest de Jonquières worked on this problem in the early 1860's, but it was Luigi Cremona who is credited with observing this error that the doubled lines are counted amongst the solutions \cite[pp.~118-119]{Kleiman-Chasles}. A corrected computation was announced by Michel Chasles\footnote{%
+Apparently (and thankfully) Michel Chasles' infamous gullibility did not extend to his work in enumerative algebraic geometry, as he was able to correctly surmise the flaws in Jakob Steiner's work. Unfortunately, he was the victim of a prolonged scam in which he purchased forged letters written by Vrain-Denis Lucas, among them a love letter from Cleopatra to Julius Caesar written in French, and a falsified correspondence between Blaise Pascal and Isaac Newton validating Chasles' conspiracy theory that Newton had stolen his theory of gravity from Pascal \cite[VI.4]{Farquhar-deception}.%
+}
+in 1864 \cite{Chasles-conics}, which was part of the work which won him the Copley medal.
+
+\begin{theorem}[{\cite{Chasles-conics}}] The number of smooth conics tangent to five is 3264.
+\end{theorem}
+\begin{proof} We follow the exposition in \cite{Kleiman-Chasles}, with some modern terminology. Given a family of conics, we let $\mu$ denote the number of conics passing through a given point, and dually $\nu$ the number tangent to a given line. The general idea (in Chasles theory of \textit{characteristics}) is that a condition on a family of conics, for instance being tangent to a fixed conic, can be expressed as a linear combination $\alpha\mu + \beta\nu$. We let $\mu^r \nu^s$ denote the number of conics passing through $r$ points and tangent to $s$ lines, and it can be easily computed that $\mu^{r} \nu^{5-r} = 2^{\min\{r,5-r\}}$ (cf.~\cite[p.~42]{Katz-book}).
+
+Let's let $\alpha\mu + \beta\nu$ be the condition of tangency to a given conic, for some $\alpha,\beta\in\Z$. We want to solve for $\alpha$ and $\beta$, which in more contemporary language is solving for the degree of the hypersurface describing tangency (and we've seen that this is six). To do this, we note that a pencil of conics is describable as the conics passing through $4$ fixed points, hence the condition $\mu^4$. We then solve for
+\begin{align*}
+    6 = \mu^4 (\alpha\mu + \beta \nu) = \alpha + 2\beta.
+\end{align*}
+Since this problem is symmetric in pole-polar duality, we get that $\alpha = \beta = 2$. Hence the condition of being tangent to a fixed conic is precisely $2\mu + 2\nu$. To solve the problem we get
+\begin{align*}
+    (2\mu + 2\nu)^5 &= 2^5 \left( \mu^5 + 2\binom{5}{1} + 4\binom{5}{2} + 4\binom{5}{3} + 2\binom{5}{4} + 1  \right) \\
+    &= 32(102) \\
+    &= 3264.
+\end{align*}
+\end{proof}
+
+\begin{remark} Let $X \subseteq \P^5 \times (\P^5)^\ast$,
+be the closure of the space of those $(C,C^\ast)$ for which $C$ is a smooth conic. This is called the moduli of \textit{complete conics}. We can let $\mu$ and $\nu$ denote the pullback of the hyperplane class along the projections to $\P^5$ and $(\P^5)^\ast$, respectively. From this perspective, Chasles' computation can be regarded as occurring in the Chow ring $\CH^\ast(X)$ \cite[Chapter~8]{3264}.
+\end{remark}
+
+
+
+\begin{remark} There is some evidence that Chasles' work indirectly (through the work of Eugène Prouhet) inspired Schubert's calculus of conditions, which later became Hilbert's 15th problem \cite[p.~121]{Kleiman-Chasles}.
+\end{remark}
+
+A contemporary perspective on Chasles computation is given in terms of residual intersection, following Fulton and MacPherson. We refer the reader to \cite[13.5.5]{3264} for this story.
+
+
+\subsection{Setting up the monodromy problem}
+
+We let $\P^5 \cong \P\Gamma(\O_{\P^2}(2))$ be the moduli space of planar conics. The squaring map
+\begin{align*}
+    \O(1) \xto{\Delta} \O(1) \otimes \O(1) \xto{\mu} \O(2)
+\end{align*}
+induces a locus $W_1 \subseteq \P^5$ of doubled lines. We consider the incidence correspondence
+\begin{align*}
+    Y := \left\{ (C_1, \ldots, C_5;C) \colon C \text{ tangent to each }C_i \right\}\subseteq (\P^5)^{\times 5} \times (\P^5 \minus W_1).
+\end{align*}
+This comes with projection maps
+\[ \begin{tikzcd}
+    Y\dar["\pi_1" left]\rar["\pi_2" above] & \P^5\minus W_1\\
+    (\P^5)^{\times 5} &
+\end{tikzcd} \]
+with fiber $\pi_1^{-1}(C_1,C_2, \ldots, C_5) = \Tan_{C_1}\cap \cdots \cap \Tan_{C_5} \subseteq \P^5 \minus W_1$. We let $X := (\P^5)^{\times5}$ and we want to study the Galois group $G$ of $\pi_1 \colon Y \to X$.
+
+% \begin{center}
+%     \begin{tabular}{l | l}
+%     $W$ & $\P^5$ \\
+%     $\til{W}$ & $\P^5 \minus \mathit{doubled lines}$ \\
+%     $H_C$ & $\Tan_C$ \\
+%     $X_C$ & $\Bitan_C$ \\
+%     $Y_C$ & $\Flextan_C$
+%     \end{tabular}
+% \end{center}
+
+\begin{notation} 
+For any conic $C$ which is not a doubled line $C \in \til{W}$, we let $\Bitan_C \subseteq \Tan_C \subseteq \P^5$ be the locus of conics bitangent to $C$. We let $\Flextan_C \subseteq \Tan_C$ be the locus of conics with a flextangent to  $C$ (meaning a point of intersection of order $\ge 3$).
+\end{notation}
+
+\begin{proposition}[{\cite[p.~722]{Harris-Galois}}] 
+\label{prop:irreducibility-conic-loci}
+Let $C$ be a smooth conic.
+\begin{enumerate}
+    \item $\Tan_C$, $\Bitan_C$, and $\Flextan_C$ are irreducible.
+    \item If $D$ is any other conic, not tangent to $C$, then $\Tan_C \cap \Tan_D$ and $\Tan_C \cap \Flextan_D$ are irreducible.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+todo
+\end{proof}
+
+\begin{proposition} The Galois group $G = \Gal(\pi_1)$ is transitive.
+\end{proposition}
+\begin{proof} Consider the projection
+\begin{align*}
+    \pi_2 \colon Y \to \P^5 \minus W_1.
+\end{align*}
+Over a smooth conic $C \in \P^5 \minus W_1$, the fiber $\pi_2^{-1}(C) = \Tan_C^5$. Since $\Tan_C$ is irreducible of dimension four by \Cref{prop:irreducibility-conic-loci}, we have that the fiber $\pi_2^{-1}(C)$ is irreducible of dimension 20. Suppose that $C$ is a conic of rank two\footnote{I assume this means a line pair?}, then the fibers $\pi_2^{-1}(C)$ are reducible but still of rank 20.
+
+Altogether, we claim $Y$ can only have one irreducible component $\bar{Y}$, which is necessarily of dimension 25. All the points of $\Gamma$ (where $\Gamma$ is a generic fiber of $\pi_1$) necessarily lie on $\bar{Y}$. Hence $G$ is transitive.
+\end{proof}
+
+\begin{proposition} The Galois group $G$ is $2$-transitive.
+\end{proposition}
+\begin{proof} Fix a conic $C$, we want to see that $\Stab_G(C)$ is transitive. To that end, we introduce the notation\footnote{The notation $Y_C$ is overloaded in \cite[\S~IV]{Harris-Galois}} $Y_C$ for the incidence correspondence
+\begin{align*}
+    Y_C := \left\{ (C_1, \ldots, C_5 ; C') \colon C' \in \Tan_{C_i} \text{ for each }i \right\} \subseteq \Tan_C^{\times 5} \times (\P^5 \minus \left\{ W_1, C\right\}),
+\end{align*}
+with projections
+\[ \begin{tikzcd}
+    Y_C\dar["\pi_1" left]\rar["\pi_2" above] & {\P^5\minus\{W_1,C\}}\\
+    \Tan_C^{\times 5} & 
+\end{tikzcd} \]
+It is clear that $\Stab_G(C)$ is exactly the Galois group of this new $\pi_1$, so we want to argue that it is transitive. Again we do this by reference to $\pi_2$.
+
+Let $U \subseteq \P^5 \minus (W_1 \cup \left\{ C \right\})$ be the Zariski open locus of conics transverse to $C$. For any $D\in U$, we have that
+\begin{align*}
+    \pi_2^{-1}(D) = (\Tan_C \cap \Tan_D)^{\times 5},
+\end{align*}
+which by \Cref{prop:irreducibility-conic-loci} is irreducible of dimension 15. Therefore $Y_C$ has at most one irreducible component dominating $\Tan_C^{\times5}$.
+\end{proof}
+
+\begin{proposition} Fix five conics $C_1, \ldots, C_5$ with no two tangent, no three concurrent\footnote{Concurrent here means as points in $\P^5$. This can be rephrased to say that no three of them lie in a pencil.} and no three tangent to any line. Then the intersection $\Tan_{C_1} \cap \cdots \cap \Tan_{C_5} \cap (\P^5 \minus W_1)$ consists of isolated points with
+\begin{align*}
+    \sum_{C \in \Tan_{C_1} \cap \cdots \cap \Tan_{C_5}\cap \P^5\minus W_1} m_C(\Tan_{C_1} \cap \cdots \cap \Tan_{C_5}) = 3264.
+\end{align*}
+Moreover the local intersection multiplicity at some $C$ is given by
+\begin{align*}
+    m_C \left( \bigcap_{i=1}^5 \Tan_{C_i}\right) = \prod_i \left( \sum_{p\in C\cap C_i} m_p(C \cdot C_i)-1 \right).
+\end{align*}
+\end{proposition}
+
+Note that at a generic such point, $C$ is tangent to each $C_i$ at a single point $p$, with two other transverse points $q_1, q_2$ of intersection, so that the term in the product at $C_i$ is exactly one, hence the conic $C$ contributes a $+1$ to the overall count.
+
+To exhibit a simple transposition in the Galois group, we want to find an arrangement where we have 3263 smooth conics tangent to our given $C_i$'s. Equivalently, we can find a $C$ whose local intersection multiplicity is two, and all the other conics have local intersection multiplicity one.
+
+\begin{lemma} The Galois group of the five conics problem contains a simple transposition.
+\end{lemma}
+\begin{proof} Pick a conic $C$, and select the $C_i$'s to be a generic point
+\begin{align*}
+    (C_1, \ldots, C_5) \in \Tan_C^{\times 4} \times \Flextan_C,
+\end{align*}
+so that $C_1, \ldots, C_4$ are generically tangent to $C$ and $C_5$ has a flextangent with $C$. Since the $C_i$'s are chosen suitably generically, they lie in the scope of the above proposition, and we have that
+\begin{align*}
+    m_C(\Tan_{C_1} \cap \cdots \cap \Tan_{C_5}) = 2.
+\end{align*}
+It remains to argue that all the other $C' \in \Tan_{C_1} \cap \cdots \cap \Tan_{C_5}$ have multiplicity one. We let
+\begin{align*}
+    K_C = \left\{ (C_1, \ldots, C_5; C') \mid C' \in \Tan_{C_i}\forall i \right\} \subseteq (\Tan_C^{\times 4} \times \Flextan_C) \times (\P^5 \minus W_1 \cup \{C\})
+\end{align*}
+We consider
+\begin{align*}
+    K_C^{\ge 2} \subseteq K_C
+\end{align*}
+the closed subvariety of all those tuples with $m_{C'}(\Tan_{C_1}, \ldots, \Tan_{C_5})$. Now consider the diagram
+\[ \begin{tikzcd}
+    K_C^{\ge2}\rar[hook]\ar[dr] & K_C\dar["\pi_1"]\rar["\pi_2"] & \P^5\minus W_1 \cup \{C\}\\
+     & \Tan_C^{\times 4}\times\Flextan_C.
+\end{tikzcd} \]
+We want to argue that $K_C^{\ge 2} \to \Tan_C^{\times 4}\times\Flextan_C$ is not dominant.\footnote{todo - why?} Note that
+\begin{align*}
+    \pi_2^{-1}(C') = (\Tan_C \cap \Tan_{C'})^{\times4} \times (\Tan_C \cap \Flextan_{C'}) \subseteq K_C.
+\end{align*}
+This is irreducible of dimension 14 if $C'$ is smooth and transverse to $C$, it is reducible of dimension 14 if $C' \notin \Flextan_C$ and dimension 15 if $C' \in \Flextan_C$. Hence $K_C$ can have only one irreducible component $\overline{K_C}$ dominating $\Tan_C^{\times 4}\times\Flextan_C$ (since we observe that $\dim (\Tan_C^{\times 4}\times\Flextan_C) =19$). We claim that $\overline{K_C} \not\subseteq K_C^{\ge 2}$, since if $C'$ is smooth and not in $\Tan_C$, then a generic element $(D_1, \ldots, D_5;C') \in \pi_2^{-1}(C')$ has that $D_1, \ldots, D_5$ are all tangent to $C'$.
+
+Finally, we want to argue that for a generic $(C_1, \ldots, C_5) \in \Tan_C^{\times 4}\times\Flextan_C$, we have that $Y$ is irreducible at $(C_1, \ldots, C_5;C)$. Note though that for a general $D\in \P^5\minus W_1$, the fiber $\pi_2^{-1}(D)$ is irreducible at all points $(D_1, \ldots, D_5;D)$ so that $D_i \notin \Bitan_D$. But the condition that $D_i \in \Bitan_D$ isn't open -- in other words no conic in a small neighborhood of $C$ will be bitangent to a conic in a small neighborhood of $C_i$.
+\end{proof}
+
+We have therefore proven:
+
+\begin{theorem} The Galois group of the 3264 conics is $\Sigma_{3264}$.
+\end{theorem}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
