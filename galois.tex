@@ -40,6 +40,7 @@
 \providecommand{\HypFlex}{\mathrm{HypFlex}}
 \providecommand{\Mon}{\mathrm{Mon}}
 \providecommand{\NS}{\mathrm{NS}}
+\providecommand{\Quad}{\mathrm{Quad}}
 \providecommand{\res}{\mathrm{res}}
 \providecommand{\Tan}{\mathrm{Tan}}
 \providecommand{\UConf}{\mathrm{UConf}}
@@ -1214,11 +1215,7 @@ A contemporary perspective on Chasles computation is given in terms of residual 
 
 \subsection{Setting up the monodromy problem}
 
-We let $\P^5 \cong \P\Gamma(\O_{\P^2}(2))$ be the moduli space of planar conics. The squaring map
-\begin{align*}
-    \O(1) \xto{\Delta} \O(1) \otimes \O(1) \xto{\mu} \O(2)
-\end{align*}
-induces a locus $W_1 \subseteq \P^5$ of doubled lines. We consider the incidence correspondence
+We let $\P^5 \cong \P\Gamma(\O_{\P^2}(2))$ be the moduli space of planar conics, and $W_1 \subseteq \P^5$ the locus of doubled lines. We consider the incidence correspondence
 \begin{align*}
     Y := \left\{ (C_1, \ldots, C_5;C) \colon C \text{ tangent to each }C_i \right\}\subseteq (\P^5)^{\times 5} \times (\P^5 \minus W_1).
 \end{align*}
@@ -1240,7 +1237,7 @@ with fiber $\pi_1^{-1}(C_1,C_2, \ldots, C_5) = \Tan_{C_1}\cap \cdots \cap \Tan_{
 % \end{center}
 
 \begin{notation} 
-For any conic $C$ which is not a doubled line $C \in \til{W}$, we let $\Bitan_C \subseteq \Tan_C \subseteq \P^5$ be the locus of conics bitangent to $C$. We let $\Flextan_C \subseteq \Tan_C$ be the locus of conics with a flextangent to  $C$ (meaning a point of intersection of order $\ge 3$).
+For any conic $C$ which is not a doubled line, we let $\Bitan_C \subseteq \Tan_C \subseteq \P^5$ be the locus of conics bitangent to $C$. We let $\Flextan_C \subseteq \Tan_C$ be the locus of conics with a flextangent to  $C$ (meaning a point of intersection of order $\ge 3$).
 \end{notation}
 
 \begin{proposition}[{\cite[p.~722]{Harris-Galois}}] 
@@ -1338,6 +1335,11 @@ We have therefore proven:
 \end{theorem}
 
 
+\subsection{On reality for the five conics problem}
+
+In the late 90's, Ronga, Tognoli, and Vust established the existence of five smooth real conics with the property that all 3264 solution conics are real \cite{RongaTognoliVust} (this was apparently known to Fulton but never published). A contemporary computational perspective, leveraging modern methods in numerical algebraic geometry, can be found in \cite{TBS-conics}. Welschinger proved that the real count of conics is invariant of the isotopy type of the choice of five real conics -- in particular if the conics are the boundaries of five disjoint disks in $\RP^2$, then the number of conics is bounded below by 32 \cite[1.7]{Welschinger-GAFA}.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \appendix
 
@@ -1359,6 +1361,49 @@ Let $f\colon X\to Y$ is a map with irreducible equidimensional fibers, with $Y$ 
 \begin{proof} A proof can be found in \url{https://public.websites.umich.edu/~mmustata/Note1_09.pdf}
 \end{proof}
 
+\section{On quadratic forms modulo two}
+
+By studying the integral homology of various varieties, together with their intersection forms, we obtain integral bilinear forms, and we often care about their reduction at a prime.
+
+\begin{definition}
+Let $V = \Z^n$ be a free abelian group of finite rank. Then an integral \textit{quadratic form} is a function
+\begin{align*}
+    q \colon V \to \Z,
+\end{align*}
+with the property that $q(rv) = r^2 q(v)$ for any $r\in \Z$ and $v\in V$, and so that
+\begin{align*}
+    V \times V &\to \Z \\
+    (v,w) &\mapsto q(v+w)-q(v)-q(w)
+\end{align*}
+is bilinear. We denote by $\Quad_\Z(V)$ the set of integral quadratic forms on $V$.
+\end{definition}
+
+
+
+\begin{definition} We say that a bilinear form
+\begin{align*}
+    \beta \colon V \times V \to \Z
+\end{align*}
+is \textit{symmetric} if $\beta(v,w) = \beta(w,v)$ for all $v,w\in V$, and we say it is \textit{skew-symmetric} if $\beta(v,w) = - \beta(w,v)$. We denote by $\Sym_\Z(V)$ the set of symmetric bilinear forms on $V$.
+\end{definition}
+
+There is a map called \textit{polarization}\footnote{This can be interpreted as a norm.}
+\begin{align*}
+    \Quad_\Z(V) &\to \Sym_\Z(V) \\
+    q &\mapsto \left[ (v,w) \mapsto q(v+w)-q(v)-q(w) \right],
+\end{align*}
+and if we were working over a Dedekind domain in which $2$ was invertible, this would be a bijection. Instead it may fail to be bijective -- this is the main difficulty in studying quadratic forms over $\Z$ or over $\F_2$, say.
+
+\begin{terminology} If $\beta \in \Sym_\Z(V)$, then any $q$ which polarizes to $\beta$ is called a \textit{quadratic refinement} of $\beta$.
+\end{terminology}
+
+
+\begin{proposition} Let $V$ be an $\F_2$-vector space, and let $\beta$ be a symmetric bilinear form on $V$.
+\begin{enumerate}
+    \item If $\dim V$ is even, then $\beta$ admits a unique quadratic refinement.
+    \item If $\dim V$ is odd, then $\beta$ admits exactly \textit{two} quadratic refinements.
+\end{enumerate}
+\end{proposition}
 
 
 
