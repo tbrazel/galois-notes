@@ -1,11 +1,6 @@
 \documentclass[11pt]{amsart}
 \usepackage[page,toc,titletoc,title]{appendix}
 
-% Bibliography stuff
-\usepackage[doi=false,isbn=false,url=false,style=alphabetic]{biblatex}
-\bibliography{citationsgalois.bib}
-
-
 \input{commands/commands.tex}
 \input{commands/macros.tex}
 \input{commands/thms.tex}
@@ -14,9 +9,6 @@
 
 % For editing purposes, disable on commit
 %\usepackage{showkeys}
-
-\DeclareFieldFormat{postnote}{#1}
-\DeclareFieldFormat{multipostnote}{#1}
 
 \def\theshiftamount{2}
 \let\del\partial
@@ -65,6 +57,9 @@ Some notes from a mini-seminar run in Spring 2025 on Galois groups of enumerativ
 \subsection{Notation}
 
 We modify some notation slightly (e.g. $\Gr(k,n)$ instead of $G(k,n)$ for the Grassmannian of affine $k$-planes in affine $n$-space), but for the most part follow closely with the notation in \cite{Harris-Galois}. Some exceptions include using $\Flex_{(p_0,\ell_0)}$ and $\HypFlex_{(p_0,\ell_0)}$ instead of $W'$ and $W''$ for the locus of degree $d$ curves with a fixed flex or hyperflex in \Cref{sec:flexes}
+
+\setcounter{tocdepth}{1}
+\tableofcontents{}
 
 \section{Solvability}
 
@@ -1258,7 +1253,7 @@ todo
 \begin{align*}
     \pi_2 \colon Y \to \P^5 \minus W_1.
 \end{align*}
-Over a smooth conic $C \in \P^5 \minus W_1$, the fiber $\pi_2^{-1}(C) = \Tan_C^5$. Since $\Tan_C$ is irreducible of dimension four by \Cref{prop:irreducibility-conic-loci}, we have that the fiber $\pi_2^{-1}(C)$ is irreducible of dimension 20. Suppose that $C$ is a conic of rank two\footnote{I assume this means a line pair?}, then the fibers $\pi_2^{-1}(C)$ are reducible but still of rank 20.
+Over a smooth conic $C \in \P^5 \minus W_1$, the fiber is $\pi_2^{-1}(C) = \Tan_C^{\times5}$. Since $\Tan_C$ is irreducible of dimension four by \Cref{prop:irreducibility-conic-loci}, we have that the fiber $\pi_2^{-1}(C)$ is irreducible of dimension 20. Suppose that $C$ is a conic of rank two\footnote{I assume this means a line pair?}, then the fibers $\pi_2^{-1}(C)$ are reducible but still of rank 20.
 
 Altogether, we claim $Y$ can only have one irreducible component $\bar{Y}$, which is necessarily of dimension 25. All the points of $\Gamma$ (where $\Gamma$ is a generic fiber of $\pi_1$) necessarily lie on $\bar{Y}$. Hence $G$ is transitive.
 \end{proof}
@@ -1337,7 +1332,234 @@ We have therefore proven:
 
 \subsection{On reality for the five conics problem}
 
-In the late 90's, Ronga, Tognoli, and Vust established the existence of five smooth real conics with the property that all 3264 solution conics are real \cite{RongaTognoliVust} (this was apparently known to Fulton but never published). A contemporary computational perspective, leveraging modern methods in numerical algebraic geometry, can be found in \cite{TBS-conics}. Welschinger proved that the real count of conics is invariant of the isotopy type of the choice of five real conics -- in particular if the conics are the boundaries of five disjoint disks in $\RP^2$, then the number of conics is bounded below by 32 \cite[1.7]{Welschinger-GAFA}.
+In the late 90's, Ronga, Tognoli, and Vust established the existence of five smooth real conics with the property that all 3264 solution conics are real \cite{RongaTognoliVust} (this was apparently known to Fulton but never published). A contemporary computational perspective, leveraging modern methods in numerical algebraic geometry, can be found in \cite{TBS-conics}. Welshing er proved that the real count of conics is invariant of the isotopy type of the choice of five real conics -- in particular if the conics are the boundaries of five disjoint disks in $\RP^2$, then the number of conics is bounded below by 32 \cite[1.7]{Welschinger-GAFA}.
+
+
+\section{On stacks in monodromy}
+
+\subsection{Galois categories and fundamental groups}
+
+If $X$ is a space, connected and locally simply connected, and $x\in X$, there is an equivalence of categories between covers of $X$ and left $\pi_1(X,x)$-sets. We usually restrict to finite covers and finite $\pi_1(X,x)$-sets.
+
+\begin{question} When does a pair $(\mathscr{C},F)$ with $F \colon \mathscr{C} \to \Set$ induce an isomorphism $\mathscr{C} \sim \Fin_G$, where $G = \Aut(F)$?
+\end{question}
+Need some properties:
+\begin{itemize}
+    \item $F(X)$ finite for all $X|in \mathscr{C}$
+    \item $\mathscr{C}$ has finite limits and colimits, and $F$ preserves them ($F$ is \textit{exact})
+    \item there is a notion of ``connectedness''
+    \item there is a notion of ``Galois object'' -- note that $\Aut(x) \le \Aut(F(x))$ and we'll say it's Galois if we have equality
+    \item $F$ reflects isomorphisms
+    \item if $X$ is connected, then $\Aut(F)$ acts on $F(X)$ transitively
+    \item $\Aut(F) = G$ is profinite.
+\end{itemize}
+
+\begin{definition}[{\cite[0BMY]{Stacks}}] A pair $(\mathscr{C},F)$ is a \textit{Galois category} if
+\begin{enumerate}
+    \item $\mathscr{C}$ has finite limits and colimits
+    \item for any $X \in \mathscr{C}$ there exist some connected $X_i$'s so that $X \cong \amalg_i X_i$
+    \item $F(X)$ is finite for all $X$
+    \item $F$ reflects isomorphisms and is exact
+\end{enumerate}
+Here $X\in \mathscr{C}$ is connected if every monomorphism $Y \to X$ is an iso.
+\end{definition}
+
+\begin{theorem} If $(\mathscr{C},F)$ is Galois, then
+\begin{align*}
+    \mathscr{C} \xto{\sim} \Fin_G
+\end{align*}
+where $G = \Aut(F)$.
+\end{theorem}
+Moreover this structure is ``unique'' as the groups change.
+
+\begin{example} If $X$ is a scheme and $\bar{x}$ is a geometric poit in $X$, then we claim $\FEt_X$ is a Galois category. Here the functor is
+\begin{align*}
+    \FEt_X &\to \Set \\
+    Y &\mapsto \left| Y_{\bar{x}} \right|
+\end{align*}
+sending $Y$ to the underlying \textit{set} of the space of the geometric fiber.
+\begin{enumerate}
+    \item finite limits -- it has pullbacks, and a terminal object $X = X$. Finite limits -- it has coproducts and coequalizers.
+    \item obv
+    \item obv
+    \item fiber functor is exact (general fact)
+\end{enumerate}
+\end{example}
+
+\begin{lemma} If $U,V\in \FEt_X$, then $\underline{\Hom}_X(U,V)$ is represented by some $W \to X$ finite \'etale.
+\end{lemma}
+
+Upshot -- we have \textit{defined} $\pi_1^\et(X,\bar{x})$.
+
+\subsection{Stacks}
+
+Can ask for stacks starting from categories fibered in groupoids.
+
+\begin{definition} A functor of stacks $\mathscr{C}_1 \to \mathscr{C}_2$ is \emph{representable (by schemes)} if for any $T \to \mathscr{C}_2$ with $T\in \Sch$, we have that $\mathscr{C}_1 \times_{\mathscr{C}_2}T$ is an algebraic space (scheme).
+\end{definition}
+
+\begin{remark} Every property that is \'etale-local on the base can be extended to representable morphisms.
+\end{remark}
+
+\begin{definition} An algebraic (DM) stack is a stack so that there exists a scheme $U$ and $\phi \colon U \to X$ (called the smooth presentation) which is
+\begin{itemize}
+    \item representable
+    \item smooth
+    \item surjective
+\end{itemize}
+\end{definition}
+
+Given a point $x \colon \Spec(k) \to X$, with $X$ our stack, then $G_x$ can be defined as the pullback
+\[ \begin{tikzcd}
+    G_x\rar\dar\pb & \Spec(k)\dar["{(x,x)}" right]\\
+    X\rar["\Delta" below] & X \times X.
+\end{tikzcd} \]
+Then $G_x$ is an algebraic space with objects automorphisms of $x$ in $X$. If $X$ is a DM stack, then $G_x$ is discrete and has reduced stabilizers (think about them as like finite constant groups).
+
+\begin{example} \,
+\begin{enumerate}
+    \item If $G$ is smooth and affine, acting on some $U$, then there exists $[U/G]$. We want it to have some universal $G$-principal bundle $U \to [U/G]$, so that an element (meaning a map $S \to [U/G]$ by Yoneda) has that the pullback $P \to S$ is a principal $G$-bundle:
+\[ \begin{tikzcd}
+    P\rar\dar & U\dar\\
+    S\rar & {[U/G]}.
+\end{tikzcd} \]
+So we \textit{define} an object of $[U/G]$ to be a principal $G$-bundle over $S$ with an equivariant map to $U$.
+
+\item If $U = \ast$, then we call $BG = [\ast/G]$, we call it a classifying stack, and an element is a $G$-torsor.
+
+\item Can present $\mathcal{M}_{g,n}$ as a stack. The coarse moduli space $M_{g,n}$ doesn't have nice properties always, so we take the smooth stack instead.
+
+\item Smooth cubic surfaces: let $B$ be the base, and let $S \xto{\pi} B$ be propert and flat with $S_{\bar{b}}$ a smooth del Pezzo of degree 3 (a smooth cubic surface) for every geometric point $\bar{b}\in B$. The dualizing sheaf $\omega_{S/B}$ has the property that $\omega_{S/B}^\vee$ is relatively very ample, so
+\begin{align*}
+    S \hookto \mathbb{P}(R^0\pi_\ast(\omega_{S/B}^\vee)).
+\end{align*}
+This is kind of similar to $\P^3 \times B$, but twisted. Get a map
+\begin{align*}
+    \P^{19}-\Delta \tto \mathcal{M},
+\end{align*}
+for whatever our stack $\mathcal{M}$ is. But for any $S, S' \subseteq \P^3$ and iso $S \xto{\sim} S'$, this extends to all of $\P^3$, get an element of $\PGL_4$. So we really write
+\begin{align*}
+   \P^{19} \to (\P^{19}-\Delta) / \PGL_4.
+\end{align*}
+and the map to $\mathcal{M}$ factors through this. The stacky quotient remembers more info (if we wrote two bars instead of one we get the coarse moduli space).
+\end{enumerate}
+\end{example}
+
+\begin{theorem}[Keel-Mori, 1997] Can construct coarse moduli spaces (very roughly speaking).
+\end{theorem}
+
+\begin{theorem}[Local structure of DM stacks] Let $\mathcal{X}/k$ as above, $x\in \mathcal{X}$ a closed point, and $G_x$, then there exists some $\left( \left[ \Spec(A)/G_x \right],\omega \right) \to (\mathcal{X},x)$ \'etale, with $\omega \in \left[ \Spec(A)/G_x \right]$ so that $G_\omega \xto{\sim} G_x$.
+\end{theorem}
+
+That is, every stack locally looks like $\left[ \Spec(A)/G \right]$.
+
+\subsection{Monodromy}
+
+Can we use monodromy in the stacky sense to compute the one in the scheme-theoretic sense?
+
+Let $\mathcal{X}$ be a connected algebraic stack, and $\FEt_{\mathcal{X}}$ the category of representable finite \'etale covers.
+
+\begin{example} \,
+\begin{enumerate}
+    \item $X$ a scheme, get usual one
+    \item If $G$ is a finite group over $\C$ with $|G|\ge 2$, then $\Spec \C = \ast \to BG$ is a finite \'etale cover, with no sections. Hence $\pi_1(BG,\ast) \ne 0$.
+\end{enumerate}
+\end{example}
+
+\begin{remark} The category of algebraic stacks is itself a 2-category, since we have a notion of 2-morphisms.
+\end{remark}
+
+\begin{definition} Let $x,x' \colon \Spec k \to \mathcal{X}$ with $k=\bar{k}$. A \textit{hidden path} is a transformation $x \Rightarrow x'$. It is a hidden loop if $x=x'$, and we get a hidden fundamental group $\pi_1^h(X,x)$ given by the $2$-automorphisms of $x$, which we know is $G_x$.
+\end{definition}
+
+\begin{definition} A \textit{pointed cover} of $(\mathcal{X},x)$ is a pair $(f,\phi) \colon (\mathcal{Y},y) \to (\mathcal{X},x)$ so that $\phi$ is a 2-morphism $x \to f(y)$, where $f$ is representable and finite \'etale.
+\end{definition}
+
+\begin{remark} \,
+\begin{enumerate}
+    \item $f\colon \mathcal{Y} \to \mathcal{X}$ induces
+    \begin{align*}
+        \pi_1^h(\mathcal{Y}) \to \pi_1^h(\mathcal{X}).
+    \end{align*}
+\end{enumerate}
+\end{remark}
+
+\begin{example} If $G$ is a group scheme of finite type over $k=\bar{k}$ and $G^0$ is the connected component of the unity, then
+\[ \begin{tikzcd}
+    BG^0\dar\rar & BG\dar\\
+    \ast\rar & B(G/G^0).
+\end{tikzcd} \]
+Here $\pi_1^h(BG) = G$, and $BG^0$ is simply connected, so we will have that
+\begin{align*}
+    \pi_1(BG,\ast) \simeq G/G^0.
+\end{align*}
+\end{example}
+
+\begin{remark} We have that $\pi_1^h(\mathcal{X},x) \cong G_x$ which is an algebraic group.
+\end{remark}
+
+\begin{remark} If $\mathcal{X}$ is DM then $\pi_1^h(\mathcal{X},x)$ is finite.
+\end{remark}
+
+\begin{definition} We can define a Galois category for $\mathcal{X}$ a connected DM stack.
+\end{definition}
+
+This is work of Noohi, 2004
+
+There is a map
+\begin{align*}
+    \pi_1^h(\mathcal{X},x) \xto{\omega_x} \pi_1(\mathcal{X},x),
+\end{align*}
+which has finite image (since they factor over $G/G^0$ in the previous example)
+
+Suppose we have $\mathcal{X}$ mapping via $\pi$ to its coarse moduli space $X$, and let $\mathcal{Y} \to \mathcal{X}$ be finite \'etale representable. Then $\mathcal{Y} \xto{\pi'} Y$ maps to its coarse moduli space, and this induces a map
+\[ \begin{tikzcd}
+    \mathcal{Y}\rar\dar & Y\dar\\
+    \mathcal{X}\rar & X.
+\end{tikzcd} \]
+The map $\bar{f} \colon Y \to X$ is \textit{generically} \'etale and finite (but there are points over which it might have bigger stabilizer). Here $\bar{f}$ is \'etale exactly where $\pi \colon \mathcal{X} \to X$ is flat. I.e. ``where $G_x$ is constant in $x$.''
+
+\begin{claim} in the above, $\mathcal{Y} \cong \mathcal{X} \times_{X} Y$ if and only if $f$ induces an isomorphism between stabilizers.
+\end{claim}
+
+\begin{example} Let $\mathcal{M} = [\P^{19}- \Delta\PGL_4]$ and $M = (\P^{19}-\Delta)//\PGL_4$. Let $\mathcal{L} \to \mathcal{M}$ be the stack of $(S,L)$ where $L \subseteq S$ is a line. This $\mathcal{L} \to \mathcal{M}$ is \'etale and finite everywhere, and degree 27. The map $L \to M$ is only generically \'etale and finite. The reason is that $\mathcal{M} \to M$ is generically an isomorphism (since the generic smooth cubic surface has no nontrivial automorphisms)
+\[\begin{tikzcd}
+    \mathcal{L}\rar\dar["f" left] & L\dar["\bar{f}" right]\\
+    \mathcal{M}\rar & M.
+\end{tikzcd} \]
+What are the monodromy groups of $f$ and $\bar{f}$?
+\end{example}
+
+\begin{fact} On a dense open $U \subseteq \mathcal{X}$, we can restrict monodromy to an open (so long as we're working with \textit{irreducible} stuff). If $\mathcal{X}$ is not normal (e.g. when we encounter equivariant stuff), $\mathcal{Y}$ could be irreducible but not connected.
+\end{fact}
+
+So for us, we get that $\Mon(f) = \Mon(\bar{f})$ since it was a generic isomorphism.
+
+\begin{fact} We have that $\Mon(\bar{f}) \le W(E_6)$.
+\end{fact}
+
+\begin{fact} If $S$ is a cubic surface and $G = \Aut(S)$, then $G$ acts faithfully on the lines.
+\end{fact}
+
+Hence if $x\in \mathcal{M}$ corresponds to a surface $S$, then we can consider
+\begin{align*}
+    \omega_x \colon \pi_1^h(\mathcal{M},x) \to \pi_1(\mathcal{M},x)
+\end{align*}
+which is injective and it injects in $\Mon(f)$.
+
+If $S_1$ is the Fermat, then $\Aut(S)$ has order $620$. If $S_2$ is the Clebsch, then $\Aut(S_2)\cong S_5$ which is 120. So jointly, they generate a subgroup of $\Mon(f)$ of order $\lcm(620,120) = 51840/8$ of index eight.
+
+\begin{fact} There is only one maximal subgroup in $W(E_6)$ whose index divides eight. So our group is either everything or $U_4(2)$ which has index 2.
+\end{fact}
+
+\begin{fact} Does not contain order eight elements.
+\end{fact}
+
+There do exist cubic surfaces with $\Aut \cong C_8$.
+
+So these three cubic surfaces together give $W(E_6)$.
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1407,5 +1629,6 @@ and if we were working over a Dedekind domain in which $2$ was invertible, this 
 
 
 
-\printbibliography
+\bibliography{citationsgalois.bib}
+\bibliographystyle{amsalpha}
 \end{document}
