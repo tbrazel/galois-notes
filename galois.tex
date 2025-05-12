@@ -24,15 +24,20 @@
 % Custom quote block command
 \setlength{\epigraphwidth}{0.8\textwidth}
 
+\providecommand{\Alt}{\mathrm{Alt}}
 \providecommand{\ASL}{\mathrm{ASL}}
 \providecommand{\Bitan}{\mathrm{Bitan}}
+\providecommand{\Br}{\mathrm{Br}}
 \providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\FEt}{\mathrm{FEt}}
 \providecommand{\Flex}{\mathrm{Flex}}
 \providecommand{\Flextan}{\mathrm{Flextan}}
 \providecommand{\HypFlex}{\mathrm{HypFlex}}
+\providecommand{\lcm}{\mathrm{lcm}}
 \providecommand{\Mon}{\mathrm{Mon}}
 \providecommand{\NS}{\mathrm{NS}}
 \providecommand{\Quad}{\mathrm{Quad}}
+\providecommand{\RD}{\mathrm{RD}}
 \providecommand{\res}{\mathrm{res}}
 \providecommand{\Tan}{\mathrm{Tan}}
 \providecommand{\UConf}{\mathrm{UConf}}
@@ -539,9 +544,9 @@ For a very classical textbook treatment of the theory of bitangents to quartics,
 
 Jordan, inspired by work of Clebsch, initially asked to what extent equations for bitangents can be solved for in terms of the equations for a quartic, which is precisely the question of what the Galois group is. It's unclear to me who first solved for the Galois group of bitangents. We can write it in a number of different ways:
 \begin{align*}
-    O_6^-(\Z/2) \cong \Sp_6(\Z/2) \cong W(E_7)/\{\pm 1\}.
+    \Sp_6(\mathbb{F}_2) \cong W(E_7)/\{\pm 1\}.
 \end{align*}
-The first two describe the same group (like even beyond group isomorphism they are describing the same quadratic forms in mildly different language). The latter group passes through the theory of Lie groups. Some references for this connection:
+It is a finite group of order $1,451,520$. The symplectic group over $\mathbb{F}_2$ is defined in \Cref{sec:quad-forms-f2}, while the connection to the Weyl group passes through the theory of Lie groups. Some references for this connection:
 \begin{itemize}
     \item See \cite[Theorem~9]{DolgachevOrtland} for the derivation of this group in terms of the theory of Cayley octads
     \item Manivel \cite{Manivel2006} discusses this, and mentions in the intro to the paper that the Galois groups for bitangents and lines to cubic surfaces were well-known at the beginning of the 1900's. He references a connection to Lie groups that passes through the theory of Del Pezzo surfaces of degrees 3 and 2. The point of Manivel's paper is cutting out this passage through Del Pezzos and drawing a direct connection to the Lie groups. I'd like to understand both of these stories.
@@ -1559,6 +1564,179 @@ There do exist cubic surfaces with $\Aut \cong C_8$.
 
 So these three cubic surfaces together give $W(E_6)$.
 
+\section{Resolvent degree and the Bring quintic}
+
+\subsection{Roots of polynomials and resolvent degree}
+
+\textbf{Problem}: Find and understand formulas for roots of the polynomial
+\begin{align*}
+    p(z) = z^n + a_1 z^{n-1} + \ldots + a_n.
+\end{align*}
+%
+
+\begin{example} The quadratic polynomial $z^2 + a_1 z +a_2$ has roots
+\begin{align*}
+    \frac{-a_1 \pm \sqrt{a_1^2- 4a_2}}{2}.
+\end{align*}
+\end{example}
+The operations going into this formula are addition, multiplication, and a square root.
+
+\begin{question} Is there a formula in radicals for a root of a generic degree $n$ polynomial.
+\end{question}
+
+The Abel-Ruffini theorem says \emph{no} for $n\ge 5$.
+
+\textit{Proof idea}: Equations are hard to solve because they have ``complicated topology.''
+
+Let $\mathcal{P}_n \cong \C^n$ be the space of monid degree $n$ polynomials. Let $\til{\mathcal{P}}$ be the \textit{root cover} of $\mathcal{P}_n$:
+\begin{align*}
+    \til{\mathcal{P}}_n = \left\{ (p,\lambda) \mid p(\lambda) = 0 \right\}.
+\end{align*}
+This is a branched $n$-sheeted cover of $\mathcal{P}_n$ branched over the discriminant locus $V(\Delta_n(a_1, \ldots, a_n))$, consisting of polynomials with repeated roots. The monodromy of this cover is $S_n$.
+
+Here $\pi_1(\mathcal{P}_n-V(\Delta_n)) = B_n$ is the braid group on $n$ strands. This is because it can be identified with the unordered configuration space of $n$ points in $\C$ (by sending a polynomial to its roots). Here the monodromy action is given by
+\begin{align*}
+    B_n \tto S_n.
+\end{align*}
+
+\begin{example} Given $z^d - a =0$ for $a\in \C$, then as a cover
+\begin{align*}
+    \pi_2 \colon \{(z,a) \mid z^d -a = 0\} \to \{a\}_{a\in \C},
+\end{align*}
+we are adjoining a $d$th root of $a\in \C$. Hence $\pi_2$ is a $d$-sheeted branched cover, which is branched over zero. The monodromy is the cyclic group $C_d$.
+\end{example}
+
+\textbf{Upshot}: Building cyclic covers corresponds to adjoining $d$th roots.
+
+\begin{example} Over the base space of monic quadratic polynomials, we can take a root cover. This is degree two, branched over $V(\Delta_2) = V(a_1^2 - 4a_2)$. We have an isomorphism
+\begin{align*}
+    \left\{ (p,\delta) \mid \delta^2 = a_1^2 - 4a_2 \right\} &\xto{\sim} \left\{ (p,\lambda) \mid p(\lambda) = 0 \right\} \\
+    (p,\delta) &\mapsto \left( p, - \frac{a_1}{2} + \frac{\delta}{2} \right).
+\end{align*}
+We are transforming the information about roots to information about $\delta$, which is like a square root of the discriminant. This is because having two roots allows us to reconstruct the polynomial, which is why this is an isomorphism of branched covers.
+
+Why do we want to do this? It is because it's easier to write down topological info of this cover on the left. It is a pullback
+\[ \begin{tikzcd}
+    \left\{ (p,\delta) \right\}\rar[dashed]\dar\pb & \P^1\dar["z\mapsto z^2" right]\\
+    \left\{ p(z) \right\}\rar[dashed] & \P^1
+\end{tikzcd} \]
+The top horizontal map takes $(p,\delta) \mapsto \delta$, and the bottom one sends $p(z)$ to its discriminant.
+\end{example}
+
+So all the ``topological complexity'' reduces to the map $\P^1 \to \P^1$. We can write the above as
+\[ \begin{tikzcd}
+    X_1\dar\rar\pb & \til{P}_2\dar\\
+    X_0\rar[dashed] & P_2\\
+\end{tikzcd} \]
+
+
+\begin{proof}[Proof of Abel-Ruffini] Suppose there exist formulas in radicals for generic degree $n$ polynomials. Then there exists the following tower:\footnote{
+The info encoded in this tower is essentially the idea of resolvent degree.}
+\[\begin{tikzcd}
+    X_r\dar\ar[ddr] & \\
+    \vdots \dar & \\
+    X_2 \rar\dar & \til{P_n}\dar\\
+    X_1\rar & P_n = X_0,
+\end{tikzcd} \]
+where each
+\[ \begin{tikzcd}
+    X_{i+1}\rar\dar & \P^1\dar\\
+    X_i\rar & \P^1
+\end{tikzcd} \]
+is a pullback along an endomorphism $z \mapsto z^d$ of the projective line. (\textbf{Fact}: Every cyclic cover is a pullback of a map $\P^1 \to \P^1$ along a rational map to $\P^1$.) This implies that we have
+\[ \begin{tikzcd}
+    X_r\rar[dashed]\ar[dr,dashed] & \til{P}_n\dar\\
+     & P_n.
+\end{tikzcd} \]
+The monodromy group of $\til{P}_n \to P_n$ is $S_n$, and the monodromy group of $X_r \to P_n$ is some $G$. Then we get a surjection
+\begin{align*}
+    G \tto S_n.
+\end{align*}
+Since $G$ is given by iterated extensions of cyclic groups, we get that $G$ is solvable, hence $S_n$ is solvable (quotients of solvable groups are solvable), and hence $n\le 4$.
+\end{proof}
+
+\begin{note} For $n\le 4$ such a tower exists.
+\end{note}
+
+\begin{theorem}[Bring, 1786] Any quintic can be reduced via radicals to a quintic of the form $P_a(z) = z^5 + az + 1$. That is, there is a formula for the general quintic in $\sqrt{-}$, $\sqrt[3]{-}$ and $\sqrt[\Br]{-}$ where
+\begin{align*}
+    \sqrt[\Br]{a} = \left\{ z \mid z^5 + az + 1 = 0 \right\}.
+\end{align*}
+\end{theorem}
+
+The Bring family is parametrized by \textit{one parameter} -- this is an important thing to note.
+
+\begin{remark}[The Bring family] Consider the family of polynomials $p_a(z) = z^5 + az + 1$ for $a\in \C$. This is a linear subspace of degree $1$ in the moduli of monic quintics.
+\begin{enumerate}
+    \item The discriminant locus $\Delta$ is a set consisting of five points in $\C$
+    \item The monodromy of the root cover restricted to the Bring family is $S_5$.
+\end{enumerate}
+Around each of these five points in $\Delta \cap \left\{ p_a \right\}_{a\in \C}$, the cover looks like a simple transposition. [Visualization available!]
+\end{remark}
+
+\textbf{Upshot}: The Bring family encodes the ``topological complexity'' of solving quintic equations.
+
+In tower language, we are getting a tower
+\[ \begin{tikzcd}
+    X_3\dar["{\sqrt[\Br]{-}}" left,dashed]\ar[dr,dashed] & \\
+    X_2\dar["{\sqrt[3]{-}}" left,dashed] & \til{P}_5\ar[dd]\\
+    X_1\dar["{\sqrt[2]{-}}" left,dashed] & \\
+    X_0\rar[equal] & P_5\\
+\end{tikzcd} \]
+This is two pullbacks along $z\mapsto z^2$ and $z\mapsto z^3$, and adjoining the Bring radical is pulling back along the \textit{Bring curve}
+\begin{align*}
+    \mathscr{C} \to\P^1.
+\end{align*}
+Here $\mathscr{C}$ is genus 4, dimension 1.
+
+``Solving a quintic is a 1-parameter problem.''
+
+\begin{definition} The \textit{resolvent degree} of a branched cover $\til{P}_n \to P_n$ is the least $d$ for which there exists a formula in algebraic functions of at most $d$ variables for the roots of a polynomial in terms of its coefficients.
+\end{definition}
+
+\begin{definition} The \textit{essential dimension} $\mathrm{ed}_k(Y \dashto X)$ is the least $d$ so that there exists a rational cover\footnote{Rational cover = generically finite dominant rational map} $\til{W} \dashto W$ with $\dim(\til{W}) = \dim(W) = d$, and
+\[ \begin{tikzcd}
+    Y\rar[dashed]\dar[dashed] & \til{W}\dar[dashed]\\
+    X\rar[dashed] & W.
+\end{tikzcd} \]
+The \textit{resolvent degree} of $Y \dashto X$ is the minimal $d$ for which there exists a finite \textit{tower} of rational covers, each of essential dimension $\le d$.
+\end{definition}
+
+So our tower above shows
+
+\begin{theorem} The resolvent degree of $\til{P}_5 \to P_5$ is $1$.
+\end{theorem}
+
+\subsection{RD of enumerative problems}
+
+Let $H_{3,3}(1)$ denote the moduli of $(S,L)$ with $S$ a smooth cubic surface and $L \subseteq S$ a line. We get a $27$-sheeted cover
+\begin{align*}
+    H_{3,3}(1) \to H_{3,3},
+\end{align*}
+with monodromy $W(E_6)$.
+
+\begin{remark} \,
+\begin{enumerate}
+    \item $W(E_6)$ is not solvable, so there doesn't exist a formula for the $27$ lines of a cubic surface
+    \item Let $H_{3,3}(r)$ be the moduli of $S$ and $r$ lines on $S$, with superscript ``skew'' for $r$ skew lines. Then
+    \begin{align*}
+        H_{3,3}(27) \to H_{3,3}^\text{skew}(r)
+    \end{align*}
+    is solvable for $r=3$ but not for $r<3$.
+\end{enumerate}
+This means there is a formula in radicals for the $27$ lines given $3$ disjoint ones, but no fewer.
+\end{remark}
+
+But formulas not in radicals do exist.
+
+\begin{theorem} $\RD(H_{3,3}(27) \to H_{3,3}(1)) \le \RD(\til{P}_5 \to P_5) = 1$.
+\end{theorem}
+\begin{proof} Given a line on a cubic surface, we can consider the pencil of planes containing $L$. The residual conic degenerates at five pairs of distinct lines, giving us 11 lines in total. We can solve for the remaining 16 in radicals in terms of the 11 we have.
+\end{proof}
+
+
+
+\textbf{Vibe}: The Bring curve is highly symmetric (has automorphism group $S_5$), and the map to $\P^1$ is exactly the quotient by this automorphism group. In resolvent degree problems, highly symmetric objects like this often appear, as we leverage symmetry to drive down the resolvent degree of the problem.
 
 
 
@@ -1567,7 +1745,7 @@ So these three cubic surfaces together give $W(E_6)$.
 
 \section{Algebraic geometry terms and references}
 
-Here are some terms and results, laid out in the order we need to use them throughout the notes.
+Here are some terms and results we might need in the notes.
 
 \begin{definition}[{\cite[p.~91]{Hartshorne}}]
 \label{def:generically-finite}
@@ -1583,9 +1761,11 @@ Let $f\colon X\to Y$ is a map with irreducible equidimensional fibers, with $Y$ 
 \begin{proof} A proof can be found in \url{https://public.websites.umich.edu/~mmustata/Note1_09.pdf}
 \end{proof}
 
-\section{On quadratic forms modulo two}
 
-By studying the integral homology of various varieties, together with their intersection forms, we obtain integral bilinear forms, and we often care about their reduction at a prime.
+
+\section{On quadratic forms modulo two}\label{sec:quad-forms-f2}
+
+By studying the integral homology of various varieties, together with their intersection forms, we obtain integral bilinear forms, and we often care about their reduction modulo two. Over $\mathbb{F}_2$ the theory of bilinear and quadratic forms gets simultaneously harder and easier.
 
 \begin{definition}
 Let $V = \Z^n$ be a free abelian group of finite rank. Then an integral \textit{quadratic form} is a function
@@ -1620,12 +1800,192 @@ and if we were working over a Dedekind domain in which $2$ was invertible, this 
 \end{terminology}
 
 
-\begin{proposition} Let $V$ be an $\F_2$-vector space, and let $\beta$ be a symmetric bilinear form on $V$.
-\begin{enumerate}
-    \item If $\dim V$ is even, then $\beta$ admits a unique quadratic refinement.
-    \item If $\dim V$ is odd, then $\beta$ admits exactly \textit{two} quadratic refinements.
-\end{enumerate}
+\begin{definition} Recall a form is said to be \textit{symplectic} if it is skew-symmetric and non-degenerate. We denote by $\Sp(V)$ the group of \textit{symplectic forms} on $V$.\footnote{todo -- explain the group structure}
+\end{definition}
+
+The following result is crucial.
+
+\begin{proposition} If $\beta$ is a non-degenerate alternating form on some finite-dimensional $k$-vector space $V$, then $V$ has \emph{even} dimension.
 \end{proposition}
+\begin{proof} We can induct on $\text{dim}(V)$, running through odd dimensions, to show that alternating implies degeneracy. Clearly if $\dim(V)=1$, the form must be degenerate. Now suppose $\dim(V) = n$, let $\beta$ be an alternating form on $V$, and pick some nonzero $v\in V$. If $\beta(v,-)$ is identically zero, then $\beta$ is degenerate and we are done, so suppose not. Then $\beta(v,w) = a$ for some $a\ne 0$ in $k$. By rescaling $w$, we may assume $a=1$. Since $\beta$ is alternating, $w$ cannot be a scalar multiple of $v$, hence $\text{span}\{v,w\} \subseteq V$ is a $2d$ subspace. Call it $V_0$. Since $\beta$ is alternating, it is skew-symmetric, so $\beta$ is represented by the Gram matrix $\begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$ for $V_0$ in the basis $\left\{ v,w \right\}$. Then we can write $V = V_0 \oplus V^\perp$, and $\beta$ is non-degenerate and alternating on $V_0^\perp$. Hence by induction, $\dim(V_0^\perp)$ is even, hence so is $\dim(V)$.
+\end{proof}
+
+\begin{definition} If $\beta$ is a non-degenerate alternating form on $V$, where $\dim(V) = 2n$, then a \textit{symplectic basis} for $\beta$ is a basis
+\begin{align*}
+    \left\{ x_1, \ldots, x_n, y_1, \ldots, y_n \right\},
+\end{align*}
+so that
+\begin{itemize}
+    \item $\beta(x_i, y_i) = \delta_{ij}$
+    \item $\beta(x_i,x_j) =\beta(y_i,y_j) = 0$ for all $i,j$.
+\end{itemize}
+In particular in this basis, $\beta$ is represented by $\begin{pmatrix} 0 & I_n \\ I_n & 0 \end{pmatrix}$.
+\end{definition}
+
+\begin{theorem} Every non-degenerate alternating form on a vector space over an arbitrary field admits a symplectic basis.
+\end{theorem}
+
+\begin{slogan} There is really only \textit{one} symplectic form on $V^{2n}$ for any $n$, which is the standard one.
+\end{slogan}
+
+
+
+
+
+% \begin{proposition}[{\cite[p.189]{Dolgachev}}]
+% Two quadratic forms $q,q'$ on $V\in \Vect_k$ have the same polarization if  $q-q' = \ell$ for some $\ell \colon V\to k$ with
+% \begin{itemize}
+%     \item $\ell(v+w) = \ell(v) + \ell(w)$
+%     \item $\ell(av) = a^2 \ell(v)$, for any $v\in V$, $a\in k$
+% \end{itemize}
+% \end{proposition}
+% \begin{proof} For the forwards direction, we set
+% \begin{align*}
+%     q(v+w) - q(v) - q(w) &= q'(v+w) - q'(v) - q'(w),
+% \end{align*}
+% and rearrange to get additivity of $\ell = q-q'$, then it is clear $\ell(av) = a^2 \ell(v)$. For the backwards direction, we take $q'$ and any such $\ell$, and show that $q:= q' + \ell$ is quadratic with the same polarization as $q'$.
+% \end{proof}
+
+
+\subsection{In characteristic two}
+A good reference for this is \cite[5.1.2]{Dolgachev}.
+
+\begin{proposition} Over a field of characteristic two, alternating implies skew-symmetric, but not vice versa.
+\end{proposition}
+\begin{proof} If $\beta(-,-)$ is alternating, then we can plug in $\beta(v+w,w+v)$ and see $\beta$ must be skew-symmetric. The converse doesn't hold -- consider for instance the identity matrix, which represents a symmetric (and hence skew-symmetric in characteristic two) form, but is clearly not alternating.
+\end{proof}
+
+These leaves open the question of what we should mean by a \textit{symplectic form} over a field of characteristic two. Asking for it to be skew-symmetric is silly since this is the same as symmetry.
+
+\begin{definition} We say a form over a field of characteristic two is \textit{symplectic} if it is alternating, meaning $\beta(v,v) = 0$ for any $v\in V$.
+\end{definition}
+
+
+\begin{proposition} In characteristic two, polarization factors through symplectic forms:
+\[ \begin{tikzcd}
+    \Quad_{\mathbb{F}_2}(V)\ar[dr]\rar[dashed] & \Alt_{\mathbb{F}_2}(V)\dar[hook]\\
+     & \Sym_{\mathbb{F}_2}(V).
+\end{tikzcd} \]
+\end{proposition}
+\begin{proof} Let $V$ be an $\mathbb{F}_2$-vector space and let $q$ be a quadratic form on $V$. Let $\beta(-,-)$ be the polarization. Then for any $v\in V$, we have that
+\begin{align*}
+    \beta(v,v) &= q(2v) - q(v) - q(v) = 4q(v) - 2q(v) =0.
+\end{align*}
+Hence $\beta$ is symplectic.
+\end{proof}
+
+So how many quadratic forms polarize to the standard symplectic form on $V$? We study this over $\mathbb{F}_2$, specifically:
+
+\subsection{Over a field with two elements}
+
+Over $\mathbb{F}_2$, we always have $a^2 = a$, so some stuff simplifies.
+
+\begin{proposition} Two forms $q,q' \in \Quad_{\mathbb{F}_2}(V)$ have the same polarization if and only if
+\begin{align*}
+    q - q' = \ell,
+\end{align*}
+where $\ell \colon V \to \mathbb{F}_2$ is a linear form.\footnote{Over a general field we would ask $\ell$ to satisfy $\ell(av) = a^2 \ell(v)$ for any scalar $a$, but over $\mathbb{F}_2$ this condition just means $\ell(0) = 0$.}
+\end{proposition}
+\begin{proof} For the forward direction, suppose $q$ and $q'$ admitted the same polarization. Then for any $(v,w)$ the output of the polarization is the same, meaning
+\begin{align*}
+    q(v+w) - q(v) - q(w) = q'(v+w) - q'(v) - q'(w).
+\end{align*}
+Rearranging, we get $(q-q')(v+w) = (q-q')(v) + (q-q')(w)$, hence their difference is linear, and letting $\ell(v) = (q-q')(v)$, we get that $\ell(av) = a^2 \ell(v)$ from the definition of $q$ and $q'$ both being quadratic forms.
+
+For the reverse direction, let $q'$ be a quadratic form and $q := q' + \ell$. We want to argue that $q$ is a quadratic form. Indeed, 
+\begin{align*}
+    q(av) &= q'(av) + \ell(av) = a^2 q'(v) + a \ell(v) = a^2 (q'(v) + \ell(v)).
+\end{align*}
+Moreover it is clear that $q$ and $q'$ have the same polarization.
+\end{proof}
+
+\begin{proposition} Let $V\cong \mathbb{F}_2^{2n}$ have even dimension, and let $Q(V)$ be the set of quadratic forms whose polarization is the standard symplectic form. Then $Q(V)$ is an affine torsor for $\mathbb{F}_2^{2n}$.
+\end{proposition}
+
+\begin{example} Let $C$ be any curve. Then we have an isomorphism $\Jac(C)[2]\cong \mathbb{F}_2^{2g}$, and this comes equipped with the \textit{Weil pairing}, which is an alternating non-degenerate form.
+\end{example}
+
+We will identify $Q(V)$ with the set of $\theta$-characteristics and this relation will be better understood.
+
+\begin{notation} Let $V$ be a symplectic space of dimension $2n$, with matrix $J_n = \begin{pmatrix} 0 & I_n \\ I_n & 0 \end{pmatrix}$. With respect to this standard basis, we define
+\begin{align*}
+    \Sp_{\mathbb{F}_2}(V) = \left\{ A\in \GL_{2n}(\mathbb{F}_2) \mid A^T J_n A = J_n \right\}.
+\end{align*}
+We will also write $\Sp_{2n}(\mathbb{F}_2)$ to mean the above group, indicating the rank of $V$ but suppressing it from the notation.
+\end{notation}
+By induction, we may argue that \cite[5.9]{Dolgachev}:
+\begin{align*}
+    \# \Sp_{2n}(\mathbb{F}_2) = 2^{n^2}(2^{2n} -1)(2^{2n-2}-1) \cdots (2^2-1).
+\end{align*}
+%
+Note that $\Sp(V)$ acts on $Q(V)$.
+
+\begin{proposition} As a $\Sp(V)$-set, we have that $Q(V)$ is a disjoint union of two transitive $\Sp(V)$-sets, corresponding to the \emph{even} and \emph{odd} quadratic forms polarizing to the standard symplectic form on $V$.
+\end{proposition}
+
+Here even and odd is defined in terms of the \textit{Arf invariant}, but is related to even and odd theta-characteristics. We denote by $O_{2n}^+(\mathbb{F}_2)$ or $O_{2n}^-(\mathbb{F}_2)$ the stabilizer in $\Sp(V)$ of an even (resp. odd) quadratic form. In this notation, we have an isomorphism of $\Sp(V)$-sets of the form:
+\begin{align*}
+    Q(V) \cong \Sp(V)/O^+(V) \amalg \Sp(V) / O^-(V).
+\end{align*}
+%
+Here $\left| \Sp(V)/O^+(V) \right| = 2^{n-1}(2^n+1)$ and $\left| \Sp(V)/O^-(V) \right| = 2^{n-1}(2^n-1)$. We record some numbers here:
+\begin{center}
+    \begin{tabular}{c | c c c}
+    $2n$ & $\#\Sp_{2n}(\mathbb{F}_2)$ & $\#O_{2n}^+(\mathbb{F}_2)$ & $\# O_{2n}^-(\mathbb{F}_2)$\\
+    \hline
+    $2$ & $6$ & $2$ & $6$ \\
+    $4$ & $720$ & $72$ & $120$ \\
+    $6$ & $1451520$ & $40320$ & $51840$ \\
+    $8$ & $47377612800$ & $348364800$ & $394813440$
+    \end{tabular}
+\end{center}
+
+
+% \begin{proposition} Let $V$ be an $\F_2$-vector space, and let $\beta$ be a symmetric bilinear form on $V$.
+% \begin{enumerate}
+%     \item If $\dim V$ is even, then $\beta$ admits a unique quadratic refinement.
+%     \item If $\dim V$ is odd, then $\beta$ admits exactly \textit{two} quadratic refinements.
+% \end{enumerate}
+% \end{proposition}
+
+
+\section{Theta-characteristics}
+
+We've discussed theta-characteristics above. Let $C$ be a curve, and look at $\Jac(C)[2] \cong \mathbb{F}_2^{2g}$. This comes equipped with the Weyl pairing $\omega$, and we can ask which quadratic forms polarize to $\omega$. Then we have that
+\begin{align*}
+    V = \Jac(C)[2] = \left\{ v\in \Pic^0(C) \mid 2v = 0 \right\}.
+\end{align*}
+%
+\begin{theorem} The $\theta$-characteristics on a curve are in canonical bijection with $Q(V)$, that is, the set of quadratic forms on $\Jac(C)[2]$ polarizing to the Weil pairing.
+\end{theorem}
+To my knowledge this is due to Mumford. This theorem explains a few things:
+\begin{itemize}
+    \item there is no canonical bijection between $\theta$-characteristics and two-torsion points on the Jacobian, precisely due to the torsor structure above
+    \item a choice of $\theta$-characteristic induces a bijection, however, and all other $\theta$-characteristics can be discussed with reference to this fixed one.
+\end{itemize}
+
+
+\begin{proposition} The number of theta-characteristics on a curve $C$ of genus $g$ over an algebraically closed field is as follows:
+\begin{center}
+    \begin{tabular}{c c}
+    total & $2^{2g}$ \\
+    even & $2^{g-1}(2^g+1)$ \\
+    odd & $2^{g-1}(2^g - 1)$
+    \end{tabular}
+\end{center}
+Some small-dimensional examples are as follows:
+\begin{center}
+    \begin{tabular}{c | c c c c }
+    & elliptic curves & $\substack{\text{genus 2 curves} \\ \text{(e.g. plane quartics)}}$ & genus 3 curves & $\substack{\text{genus 4 curves} \\\text{(e.g. some space sextics)}}$ \\
+    \hline
+    total   & $4$   & $16$  & $64$  & $256$\\
+    even    & $3$   & $10$  & $36$  & $136$\\
+    odd     & $1$   & $6$   & $28$  & $120$.
+    \end{tabular}
+\end{center}
+\end{proposition}
+
+
 
 
 
