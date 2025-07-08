@@ -63,6 +63,10 @@ Some notes from a mini-seminar run in Spring 2025 on Galois groups of enumerativ
 
 We modify some notation slightly (e.g. $\Gr(k,n)$ instead of $G(k,n)$ for the Grassmannian of affine $k$-planes in affine $n$-space), but for the most part follow closely with the notation in \cite{Harris-Galois}. Some exceptions include using $\Flex_{(p_0,\ell_0)}$ and $\HypFlex_{(p_0,\ell_0)}$ instead of $W'$ and $W''$ for the locus of degree $d$ curves with a fixed flex or hyperflex in \Cref{sec:flexes}
 
+\subsection{Acknowledgments}
+Thank you to everyone who gave a talk in this mini-seminar: Nathan Chen, Alberto Landi, Sidhanth Raman, Michael Zeng, Zhong Zhang, and people who attended and participated, including Claudio Gómez-Gonzáles, Natalia Pacheco-Tallaj, Ben Spitz. Thank you to Joe Harris for discussions in and around this material.
+
+
 \setcounter{tocdepth}{1}
 \tableofcontents{}
 
@@ -529,6 +533,19 @@ A textbook treatment is described on \cite[p.~333]{MillerBlichfeldtDickson}, in 
 \end{align*}
 where the $a_i$'s are the coordinates of a general cubic. Finally we plug in $f(x,\phi(x),1) =0$ and clear denominators to obtain a degree nine polynomial in $x$, the roots of which are the $x$-coordinates of all the nine flexes on the cubic.
 
+\subsection{Monodromy over $\Q$ versus over $\C$}
+Joe remarks on \cite[p.~696]{Harris-Galois} that Jordan had initially stated the Galois group of this problem was a subgroup of $\mathrm{AGL}_2(\mathbb{F}_3)$, which is correct. Dickson and Weber stated that this containment was equality, which is not exactly incorrect.. let's consider the following computational example: we generate a random cubic over $\Z$, intersect it with its Hessian, eliminate a variable, and take the Galois group of the resulting degree nine polynomial. If we plug this into SageMath, we will get the following (code available on request):
+
+\begin{verbatim}
+Galois group 9T26 (E(9):2S_4) with order 432 of ...
+\end{verbatim}
+
+This is indeed the group $\mathrm{AGL}_2(\mathbb{F}_3)$, as computed by Dickson and Weber. The reason for this is that we are computing a Galois group \textit{over $\Q$} in this example, whereas the computation of the Galois group above was taking place over $\C$. In many problems this isn't a difference that emerges, however this problem is special - complex conjugation is not an element of the Galois group over $\C$, but it \textit{is} over $\Q$. This introduces an extra $C_2$ factor, extending the Galois group:
+\begin{align*}
+    0 \to \ASL_2(\mathbb{F}_3) \to \mathrm{AGL}_2(\mathbb{F}_3) \to C_2 \to 0,
+\end{align*}
+where $C_2 = \mathbb{F}_3^\times$ is the target of the determinant map.
+
 
 \section{Monodromy of bitangents}
 
@@ -767,6 +784,10 @@ In fact, given seven points on the plane satisfying the closed condition that no
     \UConf_7(\P^2)/\PGL_3 \overset{\sim}{\dashto} \mathcal{M}_3^\text{ev},
 \end{align*}
 where $\UConf$ is the moduli of unordered configurations, and $\mathcal{M}_3^\text{ev}$ is the moduli of genus three curves equipped with an even $\theta$-characteristic \cite[6.3.12]{Dolgachev}
+
+\begin{remark} There is a really interesting story of lattices emerging in this way (Beauville calls them \textit{del Pezzo lattices}) \cite{Beauville_delPezzo_lattices}
+\end{remark}
+
 
 \section{Lines on hypersurfaces}
 
@@ -1051,7 +1072,7 @@ are \textit{also} varying continuously. Thus the monodromy action given by this 
 \end{proof}
 
 
-\section{Galois groups to bitangents, part II}
+\section{Galois groups to bitangents, part II (rough notes)}
 
 Goal today:
 \begin{enumerate}
@@ -1340,7 +1361,7 @@ We have therefore proven:
 In the late 90's, Ronga, Tognoli, and Vust established the existence of five smooth real conics with the property that all 3264 solution conics are real \cite{RongaTognoliVust} (this was apparently known to Fulton but never published). A contemporary computational perspective, leveraging modern methods in numerical algebraic geometry, can be found in \cite{TBS-conics}. Welshing er proved that the real count of conics is invariant of the isotopy type of the choice of five real conics -- in particular if the conics are the boundaries of five disjoint disks in $\RP^2$, then the number of conics is bounded below by 32 \cite[1.7]{Welschinger-GAFA}.
 
 
-\section{On stacks in monodromy}
+\section{On stacks in monodromy (rough notes)}
 
 \subsection{Galois categories and fundamental groups}
 
@@ -1564,7 +1585,7 @@ There do exist cubic surfaces with $\Aut \cong C_8$.
 
 So these three cubic surfaces together give $W(E_6)$.
 
-\section{Resolvent degree and the Bring quintic}
+\section{Resolvent degree and the Bring quintic (rough notes)}
 
 \subsection{Roots of polynomials and resolvent degree}
 
@@ -1984,6 +2005,69 @@ Some small-dimensional examples are as follows:
     \end{tabular}
 \end{center}
 \end{proposition}
+
+
+\section{Why this $\pm1$ in the Weyl groups of $E_7$ and $E_8$?}
+
+In \cite[p.~2]{cartanReductionSaForme1896}, E. Cartan floated a \textit{trinity}\footnote{See \cite[p.~13]{Arnold-fields2}.} of enumerative problems; we put them alongside their Galois groups as follows:
+\[ \begin{tikzcd}[column sep=tiny]
+     & \substack{28\{\text{ bitangents to a} \\ \text{smooth plane quartic}}\ar[dr,no head] & \\
+    \substack{27\text{ lines on a }\\ \text{cubic surface}}\ar[rr,no head]\ar[ur,no head] &  & \substack{120 \text{ tritangent planes}\\ \text{to a space sextic}}\\
+\end{tikzcd} \quad\quad  \begin{tikzcd}[column sep=tiny]
+     & W(E_7)/\pm1\ar[dr,no head]\\
+    W(E_6)\ar[ur,no head]\ar[rr,no head] & & W(E_8)/\pm 1\\
+\end{tikzcd} \]
+
+\begin{question}
+Why do these factors of $\pm1$ appear in the last two groups?
+\end{question}
+
+In some sense this question has no content -- they appear because that \textit{is} what the Galois group is when we compute it. Nevertheless it's the type of question someone might ask so maybe we can ask a slightly modified question -- \textit{what is different about $W(E_6)$ as compared to $W(E_7)$ and $W(E_8)$}? The answer comes from considering the reduction of the root lattice modulo two (this is a classical fact, I learned it for the first time in \cite{Looijenga-monster}):
+
+\begin{proposition} Let $R$ be any ADE-type root system, and $L$ its lattice. Then $R/\{\pm 1\} \to L/2L$ is injective, and reducing modulo two induces an injection
+\begin{align*}
+    O(R)/\{\pm 1\} \to O(L/2L).
+\end{align*}
+This is probably in Bourbaki? But for a proof see \cite{Beauville_delPezzo_lattices}.
+\end{proposition}
+
+\begin{definition} For $3\le n\le 8$, we define the associated \textit{del Pezzo lattice} $\Z\{E_0, \ldots, E_n\}$ with inner product defined by
+\begin{align*}
+    E_0^2 &= -1\\
+    E_i^2 &= 1\text{ for }i>0\\
+    E_i\cdot E_j &= 0 \text{ for }i\ne j.
+\end{align*}
+That is, a signature $(1,n)$ form. The vectors of square 2 form a root system as follows:
+\begin{center}
+    \begin{tabular}{l | l}
+    $n$ & type \\
+    \hline
+    $3$ & $A_1 \times A_2$\\
+    $4$ & $A_4$ \\
+    $5$ & $D_5$ \\
+    $6$ & $E_6$ \\
+    $7$ & $E_7$ \\
+    $8$ & $E_8$
+    \end{tabular}
+\end{center}
+\end{definition}
+
+\begin{proposition}[{\cite{Beauville_delPezzo_lattices}}] Let $L$ be a del Pezzo lattice of rank $\ge 4$.
+\begin{enumerate}
+    \item Reduction modulo two induces an isomorphism $O(L)/\{\pm 1\} \xto{\sim} O(L/2L)$.
+    \item Reduction modulo two induces an isomorphism from the Weyl group of the lattice or its quotient:
+    \begin{align*}
+        \begin{cases} W(L) \xto{\sim} O(L/2L) & n=4,5,6 \\ W(L)/\{\pm1\}\xto{\sim} O(L/2L) & n=7,8. \end{cases}
+    \end{align*}
+\end{enumerate}
+\end{proposition}
+
+
+\begin{corollary} The Weyl group $W(E_6)$ is faithful on the mod two reduction of its root lattice, however $W(E_7)$ and $W(E_8)$ do not, and one needs to mod out by $\pm 1$ to recover this property.
+\end{corollary}
+
+
+
 
 
 
