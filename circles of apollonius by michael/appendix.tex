@@ -360,6 +360,38 @@ Below are tables for the relevant invariants on curves of genera $3$ and $4$.
         Separating $A_9$ ($g=0,0$) & 0 & 0 & 0      & ? & $2^0=1$   & ?   \\
 \end{longtable}
 
+
+\newpage
+
+\section{Real solutions to enumerative problem correspond to fixed points of involutions}
+
+\begin{proposition}
+    Let $\pi: Y\to X$ be a generically finite morphism of irreducible varieties of degree $d$ and relative dimension $0$. Let $U\subseteq X$ be an open set over which $V:=\pi^{-1}(U)\to U$ is finite étale. Assume $U(\mathbb R)\neq \varnothing$ and fix $p\in U(\mathbb R)$. Let $M$ be the monodromy group of $\pi$ acting on the fibers $F_p(\mathbb C) := \pi^{-1}(p)(\mathbb C)$. For a path $\gamma$ from $p$ to $p^\prime$, let $D_\gamma: F_p \to F_{p^\prime}$ be the deck transformation induced by $\gamma$. Then, 
+
+    \begin{enumerate}
+        \item Complex conjugation $c: Y(\mathbb C) \to Y(\mathbb C)$ restricts to an involution $c_p:F_p(\mathbb C) \to F_p(\mathbb C)$ on the fibers.
+        \item The real fiber $F_p(\mathbb R)$ is the fixed locus of the involution $c_p$. 
+        \item If $p$ and $p^\prime \in U(\mathbb R)$ lie in the same connected component, then \[c_{p^\prime} = D_\gamma c_{p} D_\gamma^{-1}.\] In particular, the number of real solutions $\# \pi^{-1}(p)(\mathbb R)$ depends only on the conjugacy class of $c \in M$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    (1) Let $C_X, C_Y$ be the antiholomorphic involutions on $X(\mathbb C), Y(\mathbb C)$ induced by complex conjugation. We have $\pi\circ C_Y = C_X\circ \pi$. Since any real point $p\in U(\mathbb{R})$ is fixed by $C_X$, we have 
+    \[C_Y(F_p) = C_Y(\pi^{-1}(p)(\mathbb C)) = \pi^{-1}(C_X(p)) = \pi^{-1}(p) = F_p,\]
+    so $C_Y$ preserves the fiber $F_p$. In particular, the restriction $c_p := C_Y|_{F_p}$ is an involution on $F_p$. 
+
+    (2) A point $y\in F_p(\mathbb C)$ is real if and only if $C_Y(y) = y$.
+
+    (3) Follows from the fact that deck transformations commute with complex conjugation, i.e. $D_\gamma\circ c_p = c_{p^\prime} \circ D_\gamma$.
+\end{proof}
+
+\begin{table}[h] \centering \begin{tabular}{ll l}
+\toprule \textbf{del Pezzo} & \textbf{Weyl group} & \textbf{Fixed points} \\ \midrule dP7 &
+A2 & [1, 3] \\ dP5 & A4 & [2, 4, 10] \\ dP4 & D5 & [0, 4, 8, 16] \\ dP3 & E6 &
+[3, 7, 15, 27] \\ dP2 & E7 & [0, 8, 16, 32, 56] \\ \bottomrule \end{tabular}
+\caption{Fixed points of involutions in Weyl groups} \label{tab:fixed-point-count} \end{table}
+
+
 \newpage
 \raggedright
 \printbibliography
