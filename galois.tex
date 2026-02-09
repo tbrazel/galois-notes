@@ -1,5 +1,13 @@
 \documentclass[11pt]{amsart}
 \usepackage[page,toc,titletoc,title]{appendix}
+\usepackage[utf8]{inputenc}
+\usepackage[LGR,T1]{fontenc}
+\usepackage[polutonikogreek,english]{babel}
+
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{longtable}
+
 
 \input{commands/commands.tex}
 \input{commands/macros.tex}
@@ -41,6 +49,11 @@
 \providecommand{\res}{\mathrm{res}}
 \providecommand{\Tan}{\mathrm{Tan}}
 \providecommand{\UConf}{\mathrm{UConf}}
+
+% citation command for appendix
+\newcommand{\HarrisThetaCite}[1]{[Harris '82, \S#1]} 
+
+
 
 \fancyfoot[C]{\thepage}
 \begin{document}
@@ -2067,7 +2080,7 @@ That is, a signature $(1,n)$ form. The vectors of square 2 form a root system as
 \end{corollary}
 
 
-
+\input{appendix.tex}
 
 
 
